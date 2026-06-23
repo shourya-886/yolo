@@ -27,9 +27,9 @@ from datetime import datetime
 # CONSTANTS
 OUTPUT_DIR = "clicked_images_inference"
 CLICKED_DIR = "clicked_images"
-CLOUD_NAME = "dtwinn6ii"
-API_KEY = "918731684835228"
-API_SECRET = "Gkotgix9G0MJFezAxirmlbyniPg"
+CLOUD_NAME = os.getenv("CLOUDINARY_CLOUD_NAME")
+API_KEY = os.getenv("CLOUDINARY_API_KEY")
+API_SECRET = os.getenv("CLOUDINARY_API_SECRET")
 PORT = '/dev/arduino'
 BAUD_RATE = 115200
 
