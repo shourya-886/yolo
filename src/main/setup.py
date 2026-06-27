@@ -30,12 +30,10 @@ setup(
     },
     entry_points={
         'console_scripts': [
-            'yolo_detect = main.simple_yolo_detect:main',
-            'bool_detect = main.bool_yolo_detect:main',
-            'cloud_detect = main.cloudinary_firebase_test:main', 
             'log_test = main.logging_test:main', #testing done
             'serial_test = main.serial_test:main', #testing done
             'image_publisher = main.image_publisher:main', #testing done
+            'cloudinary_firebase_test = main.cloudinary_firebase_test:main', #testing done
         ],
     },
 )
