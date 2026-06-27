@@ -1,3 +1,0 @@
-[2026-06-27 11:07:25] WARN Received message: hello testing
-[2026-06-27 11:07:26] WARN Received message: hello testing
-[2026-06-27 11:07:27] WARN Received message: hello testing

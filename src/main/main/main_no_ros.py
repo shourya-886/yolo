@@ -50,7 +50,7 @@ def log_to_file(message: str, severity: str = "d"):
     else:
         log_entry = f"[{timestamp}] {message}\n"
     
-    with open("logs/debug_log.txt", "a") as f:
+    with open("/home/shourya/yolo/src/main/logs/debug_log.txt", "a") as f:
         f.write(log_entry)
 
 class SerialOperation:
