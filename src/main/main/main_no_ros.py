@@ -84,7 +84,7 @@ class Updatation:
         log_to_file("initialised cloudinary")
 
     def initialise_firebase(self):
-        cred = credentials.Certificate("firebase/firebase.json")
+        cred = credentials.Certificate("firebase/firebase_new.json")
         firebase_admin.initialize_app(cred, {"databaseURL": "https://testing-65588-default-rtdb.firebaseio.com/"})
         log_to_file("initialised firebase")
 
