@@ -1,0 +1,7 @@
+#!/bin/bash
+
+export CLOUDINARY_CLOUD_NAME=dtwinn6ii
+
+export CLOUDINARY_API_KEY=918731684835228
+
+export CLOUDINARY_API_SECRET=Gkotgix9G0MJFezAxirmlbyniPg
