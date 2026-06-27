@@ -4,3 +4,7 @@
 .idea/
 src/main/clicked_images/
 src/main/clicked_images_inference/
+
+log/
+build/
+install/
