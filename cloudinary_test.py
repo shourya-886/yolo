@@ -7,6 +7,6 @@ cloudinary.config(
     api_secret="Gkotgix9G0MJFezAxirmlbyniPg"
 )
 
-result = cloudinary.uploader.upload("images_detec/test.jpeg")
+result = cloudinary.uploader.upload("sample_images/test.jpg")
 
 print(result["secure_url"])
