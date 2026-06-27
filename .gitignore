@@ -2,5 +2,5 @@
 *.db
 
 .idea/
-clicked_images/
-clicked_images_inferenced/
+src/main/clicked_images/
+src/main/clicked_images_inference/
