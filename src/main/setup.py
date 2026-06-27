@@ -34,6 +34,7 @@ setup(
             'serial_test = main.serial_test:main', #testing done
             'image_publisher = main.image_publisher:main', #testing done
             'cloudinary_firebase_test = main.cloudinary_firebase_test:main', #testing done
+            'cloudinary_test = main.cloudinary_test:main', #testing done
         ],
     },
 )

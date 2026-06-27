@@ -1,51 +1,44 @@
+import cloudinary
+import cloudinary.uploader
 import os
 
 import rclpy
 from rclpy.node import Node
-from std_msgs.msg import Bool
 
-from ament_index_python.packages import get_package_share_directory
 
-import cloudinary
-import cloudinary.uploader
+CLOUD_NAME = os.getenv("CLOUDINARY_CLOUD_NAME")
+CLOUD_API_KEY = os.getenv("CLOUDINARY_API_KEY")
+CLOUD_API_SECRET = os.getenv("CLOUDINARY_API_SECRET")
 
-class CloudinaryUploader(Node):
+
+class CloudinaryTest(Node):
     def __init__(self):
-        super().__init__('cloudinary_uploader')
-        
-        
+        super().__init__('cloudinary_test_node')
+
         cloudinary.config(
-            cloud_name=os.getenv("CLOUDINARY_CLOUD_NAME"),
-            api_key=os.getenv("CLOUDINARY_API_KEY"),
-            api_secret=os.getenv("CLOUDINARY_API_SECRET")
+            cloud_name=CLOUD_NAME,
+            api_key=CLOUD_API_KEY,
+            api_secret=CLOUD_API_SECRET
         )
 
-        
-        pkg_path = get_package_share_directory('main')
-        self.image_path = os.path.join(pkg_path, 'sample_images', 'test.jpg')
+        self.create_timer(3.0, self.timer_callback)
+        self.count = 0
+    
+    def timer_callback(self):
+        if self.count == 0:
+            result = cloudinary.uploader.upload("/home/shourya/yolo/src/main/sample_images/test.jpeg")
+            self.get_logger().info(f"Uploaded: {result['secure_url']}")
+            self.count = 1
 
-        self.state_pub = self.create_publisher(Bool, 'upload_state', 10)
-
-        self.create_timer(1.0, self.upload_image_once)
-
-    def upload_image_once(self):
-        try:
-            self.get_logger().info(f'Uploading: {self.image_path}')
-            result = cloudinary.uploader.upload(self.image_path)
-            self.get_logger().info(f'Upload Successful: {result["secure_url"]}')
-            self.state_pub.publish(Bool(data=True))
-
-        except Exception as e:
-            self.get_logger().error(f'Upload failed: {e}')
-            self.state_pub.publish(Bool(data=False))
-
-        self.destroy_timer(self.timer)
+        else:
+            self.get_logger().info("Image already uploaded, shutting down.")
+            raise SystemExit
 
 def main():
     rclpy.init()
-    uploader = CloudinaryUploader()
-    rclpy.spin(uploader)
-    uploader.destroy_node()
+    node = CloudinaryTest()
+    rclpy.spin(node)
+    node.destroy_node()
     rclpy.shutdown()
 
 if __name__ == '__main__':
