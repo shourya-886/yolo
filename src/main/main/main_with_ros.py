@@ -26,6 +26,7 @@ from datetime import datetime
 
 import rclpy
 from rclpy.node import Node
+from geometry_msgs.msg import TwistStamped
 
 # CONSTANTS
 OUTPUT_DIR = "/home/shourya/yolo/src/main/clicked_images_inference"
@@ -132,10 +133,9 @@ class YoloInference():
             sys.exit(1)
 
 class ImageProcessing:
-    def __init__(self, updater, serial_op):
+    def __init__(self, updater):
         self.updater = updater
-        self.serial_op = serial_op
-        log_to_file("initialised image processing class with updater and serial_op")
+        log_to_file("initialised image processing class with updater")
 
     def get_and_increment_counter(self):
         counter_file = os.path.join("/home/shourya/yolo/src/main/setup", "counter_inference.txt")
@@ -220,15 +220,68 @@ class MainNode(Node):
         self.declare_parameter('source', '0')
         self.declare_parameter('thresh', 0.5)
 
+        self.cmd_vel_pub = self.create_publisher(TwistStamped, "/input_joy/cmd_vel_stamped", 10)
+
         log_to_file("ROS2 node initialized with params")
         self.run_code()
+
+    def send_command_movement(self, direction):
+        direction = direction.lower()
+        message = TwistStamped()
+        message.header.stamp = self.get_clock().now().to_msg()
+        message.header.frame_id = "key_teleop"
+
+        if direction == "forward":
+            message.twist.linear.x = 0.8
+            message.twist.linear.y = 0.0
+            message.twist.linear.z = 0.0
+            message.twist.angular.x = 0.0
+            message.twist.angular.y = 0.0
+            message.twist.angular.z = 0.0
+            
+        elif direction == "backward":
+            message.twist.linear.x = -0.5
+            message.twist.linear.y = 0.0
+            message.twist.linear.z = 0.0
+            message.twist.angular.x = 0.0
+            message.twist.angular.y = 0.0
+            message.twist.angular.z = 0.0
+
+        elif direction == "right":
+            message.twist.linear.x = 0.0
+            message.twist.linear.y = 0.0
+            message.twist.linear.z = 0.0
+            message.twist.angular.x = 0.0
+            message.twist.angular.y = 0.0
+            message.twist.angular.z = -1.0
+
+        elif direction == "left":
+            message.twist.linear.x = 0.0
+            message.twist.linear.y = 0.0
+            message.twist.linear.z = 0.0
+            message.twist.angular.x = 0.0
+            message.twist.angular.y = 0.0
+            message.twist.angular.z = 1.0 
+
+        elif direction == "stop":
+            message.twist.linear.x = 0.0
+            message.twist.linear.y = 0.0
+            message.twist.linear.z = 0.0
+            message.twist.angular.x = 0.0
+            message.twist.angular.y = 0.0
+            message.twist.angular.z = 0.0
+
+        else:
+            self.get_logger().info("wrong argument passed to send_command+message()")   
+
+        self.cmd_vel_pub.publish(message)
 
     def run_code(self):
         log_to_file("----------------------------CODE EXECUTION START----------------------------")
         updater = Updatation()
         serial_op = SerialOperation(PORT, BAUD_RATE)
         yolo_handler = YoloInference()
-        img_proc = ImageProcessing(updater, serial_op)
+        img_proc = ImageProcessing(updater)
 
         # Retrieve parameters
         model_path = self.get_parameter('model').get_parameter_value().string_value
@@ -252,12 +305,20 @@ class MainNode(Node):
             print(f"-------------------number for n is : {n}------------------------")
             log_to_file(f"-------------------number for n is : {n}------------------------")
             serial_op.send_serial_data("forward")
+            self.send_command_movement("forward")
+
             time.sleep(3)
+
             serial_op.send_serial_data("stop")
+            self.send_command_movement("stop")
             
             serial_op.send_serial_data("right")
+            self.send_command_movement("right")
+
             time.sleep(0.5) 
+
             serial_op.send_serial_data("stop")
+            self.send_command_movement("stop")
             try: 
                 img_proc.take_picture_from_camera(cap, model, min_thresh)
             except IOError as e: 
@@ -266,11 +327,19 @@ class MainNode(Node):
                 sys.exit(1)
 
             serial_op.send_serial_data("left")
+            self.send_command_movement("left")
+
             time.sleep(0.5)
+
             serial_op.send_serial_data("stop")
+            self.send_command_movement("stop")
             
             serial_op.send_serial_data("forward")
+            self.send_command_movement("forward")
+            
             time.sleep(1)
+
+            self.send_command_movement("stop")
             serial_op.send_serial_data("stop")
 
             if n == 4:

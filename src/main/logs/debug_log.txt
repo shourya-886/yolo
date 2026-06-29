@@ -1,337 +1,600 @@
-[2026-06-27 13:37:14] ROS2 node initialized with params
-[2026-06-27 13:37:14] ----------------------------CODE EXECUTION START----------------------------
-[2026-06-27 13:37:14] initialised cloudinary
-[2026-06-27 13:37:14] initialised firebase
-[2026-06-27 13:37:14] initialised serial at /dev/arduino with 115200
-[2026-06-27 13:37:14] initialised YOLO inference class
-[2026-06-27 13:37:14] initialised image processing class with updater and serial_op
-[2026-06-27 13:37:14] model exists in path specified, returning YOLO object
-[2026-06-27 13:37:15] source is camera
-[2026-06-27 13:37:15] opened camera successfully
-[2026-06-27 13:37:15] -------------------number for n is : 1------------------------
-[2026-06-27 13:37:15] sent message to arduino with msg: rp10.00,lp10.00,
+[2026-06-29 20:38:30] ROS2 node initialized with params
+[2026-06-29 20:38:30] ----------------------------CODE EXECUTION START----------------------------
+[2026-06-29 20:38:30] initialised cloudinary
+[2026-06-29 20:38:30] initialised firebase
+[2026-06-29 20:38:30] initialised serial at /dev/arduino with 115200
+[2026-06-29 20:38:30] initialised YOLO inference class
+[2026-06-29 20:38:30] initialised image processing class with updater
+[2026-06-29 20:38:30] model exists in path specified, returning YOLO object
+[2026-06-29 20:38:30] source is camera
+[2026-06-29 20:38:31] opened camera successfully
+[2026-06-29 20:38:31] -------------------number for n is : 1------------------------
+[2026-06-29 20:38:31] sent message to arduino with msg: rp10.00,lp10.00,
 
-[2026-06-27 13:37:18] sent message to arduino with msg: rp0.00,lp0.00,
+[2026-06-29 20:38:34] sent message to arduino with msg: rp0.00,lp0.00,
 
-[2026-06-27 13:37:18] sent message to arduino with msg: rn10.00,lp10.00
+[2026-06-29 20:38:34] sent message to arduino with msg: rn10.00,lp10.00
 
-[2026-06-27 13:37:18] sent message to arduino with msg: rp0.00,lp0.00,
+[2026-06-29 20:38:34] sent message to arduino with msg: rp0.00,lp0.00,
 
-[2026-06-27 13:37:19] wrote image of raw image to path /home/shourya/yolo/src/main/clicked_images/pic1/captured_image_raw.jpg
-[2026-06-27 13:37:20] wrote image of inferenced image to /home/shourya/yolo/src/main/clicked_images_inference/pic1/captured_image_inferenced.jpg
-[2026-06-27 13:37:22] updated object's number to firebase
-[2026-06-27 13:37:22] updated firebase object's no in take_picture_from_camera()
-[2026-06-27 13:37:22] objects detected on iteration 1: 0
-[2026-06-27 13:37:22] sent message to arduino with msg: rp10.00,ln10.00,
+[2026-06-29 20:38:35] wrote image of raw image to path /home/shourya/yolo/src/main/clicked_images/pic1/captured_image_raw.jpg
+[2026-06-29 20:38:38] wrote image of inferenced image to /home/shourya/yolo/src/main/clicked_images_inference/pic1/captured_image_inferenced.jpg
+[2026-06-29 20:38:40] updated object's number to firebase
+[2026-06-29 20:38:40] updated firebase object's no in take_picture_from_camera()
+[2026-06-29 20:38:40] objects detected on iteration 1: 0
+[2026-06-29 20:38:40] sent message to arduino with msg: rp10.00,ln10.00,
 
-[2026-06-27 13:37:22] sent message to arduino with msg: rp0.00,lp0.00,
+[2026-06-29 20:38:40] sent message to arduino with msg: rp0.00,lp0.00,
 
-[2026-06-27 13:37:22] sent message to arduino with msg: rp10.00,lp10.00,
+[2026-06-29 20:38:40] sent message to arduino with msg: rp10.00,lp10.00,
 
-[2026-06-27 13:37:23] sent message to arduino with msg: rp0.00,lp0.00,
+[2026-06-29 20:38:41] sent message to arduino with msg: rp0.00,lp0.00,
 
-[2026-06-27 13:37:23] -------------------number for n is : 2------------------------
-[2026-06-27 13:37:23] sent message to arduino with msg: rp10.00,lp10.00,
+[2026-06-29 20:38:41] -------------------number for n is : 2------------------------
+[2026-06-29 20:38:41] sent message to arduino with msg: rp10.00,lp10.00,
 
-[2026-06-27 13:37:26] sent message to arduino with msg: rp0.00,lp0.00,
+[2026-06-29 20:38:44] sent message to arduino with msg: rp0.00,lp0.00,
 
-[2026-06-27 13:37:26] sent message to arduino with msg: rn10.00,lp10.00
+[2026-06-29 20:38:44] sent message to arduino with msg: rn10.00,lp10.00
 
-[2026-06-27 13:37:27] sent message to arduino with msg: rp0.00,lp0.00,
+[2026-06-29 20:38:45] sent message to arduino with msg: rp0.00,lp0.00,
 
-[2026-06-27 13:37:27] wrote image of raw image to path /home/shourya/yolo/src/main/clicked_images/pic2/captured_image_raw.jpg
-[2026-06-27 13:37:27] wrote image of inferenced image to /home/shourya/yolo/src/main/clicked_images_inference/pic2/captured_image_inferenced.jpg
-[2026-06-27 13:37:28] updated object's number to firebase
-[2026-06-27 13:37:28] updated firebase object's no in take_picture_from_camera()
-[2026-06-27 13:37:28] objects detected on iteration 2: 0
-[2026-06-27 13:37:28] sent message to arduino with msg: rp10.00,ln10.00,
+[2026-06-29 20:38:45] wrote image of raw image to path /home/shourya/yolo/src/main/clicked_images/pic2/captured_image_raw.jpg
+[2026-06-29 20:38:45] wrote image of inferenced image to /home/shourya/yolo/src/main/clicked_images_inference/pic2/captured_image_inferenced.jpg
+[2026-06-29 20:38:45] updated object's number to firebase
+[2026-06-29 20:38:45] updated firebase object's no in take_picture_from_camera()
+[2026-06-29 20:38:45] objects detected on iteration 2: 0
+[2026-06-29 20:38:45] sent message to arduino with msg: rp10.00,ln10.00,
 
-[2026-06-27 13:37:28] sent message to arduino with msg: rp0.00,lp0.00,
+[2026-06-29 20:38:46] sent message to arduino with msg: rp0.00,lp0.00,
 
-[2026-06-27 13:37:28] sent message to arduino with msg: rp10.00,lp10.00,
+[2026-06-29 20:38:46] sent message to arduino with msg: rp10.00,lp10.00,
 
-[2026-06-27 13:37:29] sent message to arduino with msg: rp0.00,lp0.00,
+[2026-06-29 20:38:47] sent message to arduino with msg: rp0.00,lp0.00,
 
-[2026-06-27 13:37:29] -------------------number for n is : 3------------------------
-[2026-06-27 13:37:29] sent message to arduino with msg: rp10.00,lp10.00,
+[2026-06-29 20:38:47] -------------------number for n is : 3------------------------
+[2026-06-29 20:38:47] sent message to arduino with msg: rp10.00,lp10.00,
 
-[2026-06-27 13:37:32] sent message to arduino with msg: rp0.00,lp0.00,
+[2026-06-29 20:38:50] sent message to arduino with msg: rp0.00,lp0.00,
 
-[2026-06-27 13:37:32] sent message to arduino with msg: rn10.00,lp10.00
+[2026-06-29 20:38:50] sent message to arduino with msg: rn10.00,lp10.00
 
-[2026-06-27 13:37:33] sent message to arduino with msg: rp0.00,lp0.00,
+[2026-06-29 20:38:50] sent message to arduino with msg: rp0.00,lp0.00,
 
-[2026-06-27 13:37:33] wrote image of raw image to path /home/shourya/yolo/src/main/clicked_images/pic3/captured_image_raw.jpg
-[2026-06-27 13:37:33] wrote image of inferenced image to /home/shourya/yolo/src/main/clicked_images_inference/pic3/captured_image_inferenced.jpg
-[2026-06-27 13:37:33] updated object's number to firebase
-[2026-06-27 13:37:33] updated firebase object's no in take_picture_from_camera()
-[2026-06-27 13:37:33] objects detected on iteration 3: 0
-[2026-06-27 13:37:33] sent message to arduino with msg: rp10.00,ln10.00,
+[2026-06-29 20:38:50] wrote image of raw image to path /home/shourya/yolo/src/main/clicked_images/pic3/captured_image_raw.jpg
+[2026-06-29 20:38:51] wrote image of inferenced image to /home/shourya/yolo/src/main/clicked_images_inference/pic3/captured_image_inferenced.jpg
+[2026-06-29 20:38:51] updated object's number to firebase
+[2026-06-29 20:38:51] updated firebase object's no in take_picture_from_camera()
+[2026-06-29 20:38:51] objects detected on iteration 3: 0
+[2026-06-29 20:38:51] sent message to arduino with msg: rp10.00,ln10.00,
 
-[2026-06-27 13:37:34] sent message to arduino with msg: rp0.00,lp0.00,
+[2026-06-29 20:38:52] sent message to arduino with msg: rp0.00,lp0.00,
 
-[2026-06-27 13:37:34] sent message to arduino with msg: rp10.00,lp10.00,
+[2026-06-29 20:38:52] sent message to arduino with msg: rp10.00,lp10.00,
 
-[2026-06-27 13:37:35] sent message to arduino with msg: rp0.00,lp0.00,
+[2026-06-29 20:38:53] sent message to arduino with msg: rp0.00,lp0.00,
 
-[2026-06-27 13:37:35] -------------------number for n is : 4------------------------
-[2026-06-27 13:37:35] sent message to arduino with msg: rp10.00,lp10.00,
+[2026-06-29 20:38:53] -------------------number for n is : 4------------------------
+[2026-06-29 20:38:53] sent message to arduino with msg: rp10.00,lp10.00,
 
-[2026-06-27 13:37:38] sent message to arduino with msg: rp0.00,lp0.00,
+[2026-06-29 20:38:56] sent message to arduino with msg: rp0.00,lp0.00,
 
-[2026-06-27 13:37:38] sent message to arduino with msg: rn10.00,lp10.00
+[2026-06-29 20:38:56] sent message to arduino with msg: rn10.00,lp10.00
 
-[2026-06-27 13:37:38] sent message to arduino with msg: rp0.00,lp0.00,
+[2026-06-29 20:38:56] sent message to arduino with msg: rp0.00,lp0.00,
 
-[2026-06-27 13:37:38] wrote image of raw image to path /home/shourya/yolo/src/main/clicked_images/pic4/captured_image_raw.jpg
-[2026-06-27 13:37:39] wrote image of inferenced image to /home/shourya/yolo/src/main/clicked_images_inference/pic4/captured_image_inferenced.jpg
-[2026-06-27 13:37:39] updated object's number to firebase
-[2026-06-27 13:37:39] updated firebase object's no in take_picture_from_camera()
-[2026-06-27 13:37:39] objects detected on iteration 4: 0
-[2026-06-27 13:37:39] sent message to arduino with msg: rp10.00,ln10.00,
+[2026-06-29 20:38:56] wrote image of raw image to path /home/shourya/yolo/src/main/clicked_images/pic4/captured_image_raw.jpg
+[2026-06-29 20:38:56] wrote image of inferenced image to /home/shourya/yolo/src/main/clicked_images_inference/pic4/captured_image_inferenced.jpg
+[2026-06-29 20:38:57] updated object's number to firebase
+[2026-06-29 20:38:57] updated firebase object's no in take_picture_from_camera()
+[2026-06-29 20:38:57] objects detected on iteration 4: 0
+[2026-06-29 20:38:57] sent message to arduino with msg: rp10.00,ln10.00,
 
-[2026-06-27 13:37:40] sent message to arduino with msg: rp0.00,lp0.00,
+[2026-06-29 20:38:58] sent message to arduino with msg: rp0.00,lp0.00,
 
-[2026-06-27 13:37:40] sent message to arduino with msg: rp10.00,lp10.00,
+[2026-06-29 20:38:58] sent message to arduino with msg: rp10.00,lp10.00,
 
-[2026-06-27 13:37:41] sent message to arduino with msg: rp0.00,lp0.00,
+[2026-06-29 20:38:59] sent message to arduino with msg: rp0.00,lp0.00,
 
-[2026-06-27 13:37:41] closed camera connection
-[2026-06-27 13:37:41] ----------------------------CODE EXECUTION END----------------------------
-[2026-06-27 13:43:34] ROS2 node initialized with params
-[2026-06-27 13:43:34] ----------------------------CODE EXECUTION START----------------------------
-[2026-06-27 13:43:34] initialised cloudinary
-[2026-06-27 13:43:34] initialised firebase
-[2026-06-27 13:43:34] initialised serial at /dev/arduino with 115200
-[2026-06-27 13:43:34] initialised YOLO inference class
-[2026-06-27 13:43:34] initialised image processing class with updater and serial_op
-[2026-06-27 13:43:34] model exists in path specified, returning YOLO object
-[2026-06-27 13:43:34] source is camera
-[2026-06-27 13:43:35] opened camera successfully
-[2026-06-27 13:43:35] -------------------number for n is : 1------------------------
-[2026-06-27 13:43:35] sent message to arduino with msg: rp10.00,lp10.00,
-
-[2026-06-27 13:43:38] sent message to arduino with msg: rp0.00,lp0.00,
-
-[2026-06-27 13:43:38] sent message to arduino with msg: rn10.00,lp10.00
-
-[2026-06-27 13:43:38] sent message to arduino with msg: rp0.00,lp0.00,
-
-[2026-06-27 13:43:39] wrote image of raw image to path /home/shourya/yolo/src/main/clicked_images/pic1/captured_image_raw.jpg
-[2026-06-27 13:43:40] wrote image of inferenced image to /home/shourya/yolo/src/main/clicked_images_inference/pic1/captured_image_inferenced.jpg
-[2026-06-27 13:43:41] updated object's number to firebase
-[2026-06-27 13:43:41] updated firebase object's no in take_picture_from_camera()
-[2026-06-27 13:43:41] objects detected on iteration 1: 1
-[2026-06-27 13:44:23] ROS2 node initialized with params
-[2026-06-27 13:44:23] ----------------------------CODE EXECUTION START----------------------------
-[2026-06-27 13:44:23] initialised cloudinary
-[2026-06-27 13:44:24] initialised firebase
-[2026-06-27 13:44:24] initialised serial at /dev/arduino with 115200
-[2026-06-27 13:44:24] initialised YOLO inference class
-[2026-06-27 13:44:24] initialised image processing class with updater and serial_op
-[2026-06-27 13:44:24] model exists in path specified, returning YOLO object
-[2026-06-27 13:44:24] source is camera
-[2026-06-27 13:44:24] opened camera successfully
-[2026-06-27 13:44:24] -------------------number for n is : 1------------------------
-[2026-06-27 13:44:24] sent message to arduino with msg: rp10.00,lp10.00,
-
-[2026-06-27 13:44:27] sent message to arduino with msg: rp0.00,lp0.00,
-
-[2026-06-27 13:44:27] sent message to arduino with msg: rn10.00,lp10.00
-
-[2026-06-27 13:44:28] sent message to arduino with msg: rp0.00,lp0.00,
-
-[2026-06-27 13:44:28] wrote image of raw image to path /home/shourya/yolo/src/main/clicked_images/pic2/captured_image_raw.jpg
-[2026-06-27 13:44:29] wrote image of inferenced image to /home/shourya/yolo/src/main/clicked_images_inference/pic2/captured_image_inferenced.jpg
-[2026-06-27 13:44:31] updated object's number to firebase
-[2026-06-27 13:44:31] updated firebase object's no in take_picture_from_camera()
-[2026-06-27 13:44:31] objects detected on iteration 2: 4
-[2026-06-27 13:45:18] ROS2 node initialized with params
-[2026-06-27 13:45:18] ----------------------------CODE EXECUTION START----------------------------
-[2026-06-27 13:45:18] initialised cloudinary
-[2026-06-27 13:45:18] initialised firebase
-[2026-06-27 13:45:18] initialised serial at /dev/arduino with 115200
-[2026-06-27 13:45:18] initialised YOLO inference class
-[2026-06-27 13:45:18] initialised image processing class with updater and serial_op
-[2026-06-27 13:45:18] model exists in path specified, returning YOLO object
-[2026-06-27 13:45:18] source is camera
-[2026-06-27 13:45:18] opened camera successfully
-[2026-06-27 13:45:18] -------------------number for n is : 1------------------------
-[2026-06-27 13:45:18] sent message to arduino with msg: rp10.00,lp10.00,
-
-[2026-06-27 13:45:21] sent message to arduino with msg: rp0.00,lp0.00,
-
-[2026-06-27 13:45:21] sent message to arduino with msg: rn10.00,lp10.00
-
-[2026-06-27 13:45:22] sent message to arduino with msg: rp0.00,lp0.00,
-
-[2026-06-27 13:45:22] wrote image of raw image to path /home/shourya/yolo/src/main/clicked_images/pic3/captured_image_raw.jpg
-[2026-06-27 13:45:24] wrote image of inferenced image to /home/shourya/yolo/src/main/clicked_images_inference/pic3/captured_image_inferenced.jpg
-[2026-06-27 13:45:25] updated object's number to firebase
-[2026-06-27 13:45:25] updated firebase object's no in take_picture_from_camera()
-[2026-06-27 13:45:25] objects detected on iteration 3: 3
-[2026-06-27 13:45:29] uploaded image to cloudinary and stored url in firebase
-[2026-06-27 13:45:29] updated firebase url for images in take_picture_from_camera()
-[2026-06-27 13:45:29] sent message to arduino with msg: rp10.00,ln10.00,
-
-[2026-06-27 13:45:29] sent message to arduino with msg: rp0.00,lp0.00,
-
-[2026-06-27 13:45:29] sent message to arduino with msg: rp10.00,lp10.00,
-
-[2026-06-27 13:45:30] sent message to arduino with msg: rp0.00,lp0.00,
-
-[2026-06-27 13:45:30] -------------------number for n is : 2------------------------
-[2026-06-27 13:45:30] sent message to arduino with msg: rp10.00,lp10.00,
-
-[2026-06-27 13:45:33] sent message to arduino with msg: rp0.00,lp0.00,
-
-[2026-06-27 13:45:33] sent message to arduino with msg: rn10.00,lp10.00
-
-[2026-06-27 13:45:34] sent message to arduino with msg: rp0.00,lp0.00,
-
-[2026-06-27 13:45:34] wrote image of raw image to path /home/shourya/yolo/src/main/clicked_images/pic4/captured_image_raw.jpg
-[2026-06-27 13:45:34] wrote image of inferenced image to /home/shourya/yolo/src/main/clicked_images_inference/pic4/captured_image_inferenced.jpg
-[2026-06-27 13:45:35] updated object's number to firebase
-[2026-06-27 13:45:35] updated firebase object's no in take_picture_from_camera()
-[2026-06-27 13:45:35] objects detected on iteration 4: 2
-[2026-06-27 13:45:38] uploaded image to cloudinary and stored url in firebase
-[2026-06-27 13:45:38] updated firebase url for images in take_picture_from_camera()
-[2026-06-27 13:45:38] sent message to arduino with msg: rp10.00,ln10.00,
-
-[2026-06-27 13:45:38] sent message to arduino with msg: rp0.00,lp0.00,
-
-[2026-06-27 13:45:38] sent message to arduino with msg: rp10.00,lp10.00,
-
-[2026-06-27 13:45:39] sent message to arduino with msg: rp0.00,lp0.00,
-
-[2026-06-27 13:45:39] -------------------number for n is : 3------------------------
-[2026-06-27 13:45:39] sent message to arduino with msg: rp10.00,lp10.00,
-
-[2026-06-27 13:48:27] ROS2 node initialized with params
-[2026-06-27 13:48:27] ----------------------------CODE EXECUTION START----------------------------
-[2026-06-27 13:48:27] initialised cloudinary
-[2026-06-27 13:48:27] initialised firebase
-[2026-06-27 13:48:27] initialised serial at /dev/arduino with 115200
-[2026-06-27 13:48:27] initialised YOLO inference class
-[2026-06-27 13:48:27] initialised image processing class with updater and serial_op
-[2026-06-27 13:48:27] model exists in path specified, returning YOLO object
-[2026-06-27 13:48:27] source is camera
-[2026-06-27 13:48:27] opened camera successfully
-[2026-06-27 13:48:27] -------------------number for n is : 1------------------------
-[2026-06-27 13:48:27] sent message to arduino with msg: rp10.00,lp10.00,
+[2026-06-29 20:38:59] closed camera connection
+[2026-06-29 20:38:59] ----------------------------CODE EXECUTION END----------------------------
+[2026-06-29 20:43:42] ROS2 node initialized with params
+[2026-06-29 20:43:42] ----------------------------CODE EXECUTION START----------------------------
+[2026-06-29 20:43:42] initialised cloudinary
+[2026-06-29 20:43:42] initialised firebase
+[2026-06-29 20:43:42] initialised serial at /dev/arduino with 115200
+[2026-06-29 20:43:42] initialised YOLO inference class
+[2026-06-29 20:43:42] initialised image processing class with updater
+[2026-06-29 20:43:42] model exists in path specified, returning YOLO object
+[2026-06-29 20:43:42] source is camera
+[2026-06-29 20:43:42] opened camera successfully
+[2026-06-29 20:43:42] -------------------number for n is : 1------------------------
+[2026-06-29 20:43:42] sent message to arduino with msg: rp10.00,lp10.00,
 
-[2026-06-27 13:48:30] sent message to arduino with msg: rp0.00,lp0.00,
+[2026-06-29 20:43:45] sent message to arduino with msg: rp0.00,lp0.00,
 
-[2026-06-27 13:48:30] sent message to arduino with msg: rn10.00,lp10.00
+[2026-06-29 20:43:45] sent message to arduino with msg: rn10.00,lp10.00
 
-[2026-06-27 13:48:31] sent message to arduino with msg: rp0.00,lp0.00,
+[2026-06-29 20:43:46] sent message to arduino with msg: rp0.00,lp0.00,
 
-[2026-06-27 13:48:31] wrote image of raw image to path /home/shourya/yolo/src/main/clicked_images/pic1/captured_image_raw.jpg
-[2026-06-27 13:48:33] wrote image of inferenced image to /home/shourya/yolo/src/main/clicked_images_inference/pic1/captured_image_inferenced.jpg
-[2026-06-27 13:48:34] updated object's number to firebase
-[2026-06-27 13:48:34] updated firebase object's no in take_picture_from_camera()
-[2026-06-27 13:48:34] objects detected on iteration 1: 3
-[2026-06-27 13:50:56] ROS2 node initialized with params
-[2026-06-27 13:50:56] ----------------------------CODE EXECUTION START----------------------------
-[2026-06-27 13:50:56] initialised cloudinary
-[2026-06-27 13:50:56] initialised firebase
-[2026-06-27 13:50:56] initialised serial at /dev/arduino with 115200
-[2026-06-27 13:50:56] initialised YOLO inference class
-[2026-06-27 13:50:56] initialised image processing class with updater and serial_op
-[2026-06-27 13:50:56] model exists in path specified, returning YOLO object
-[2026-06-27 13:50:56] source is camera
-[2026-06-27 13:50:56] opened camera successfully
-[2026-06-27 13:50:56] -------------------number for n is : 1------------------------
-[2026-06-27 13:50:56] sent message to arduino with msg: rp10.00,lp10.00,
+[2026-06-29 20:43:46] wrote image of raw image to path /home/shourya/yolo/src/main/clicked_images/pic1/captured_image_raw.jpg
+[2026-06-29 20:43:48] wrote image of inferenced image to /home/shourya/yolo/src/main/clicked_images_inference/pic1/captured_image_inferenced.jpg
+[2026-06-29 20:43:49] updated object's number to firebase
+[2026-06-29 20:43:49] updated firebase object's no in take_picture_from_camera()
+[2026-06-29 20:43:49] objects detected on iteration 1: 0
+[2026-06-29 20:43:49] sent message to arduino with msg: rp10.00,ln10.00,
 
-[2026-06-27 13:50:59] sent message to arduino with msg: rp0.00,lp0.00,
+[2026-06-29 20:43:50] sent message to arduino with msg: rp0.00,lp0.00,
 
-[2026-06-27 13:50:59] sent message to arduino with msg: rn10.00,lp10.00
+[2026-06-29 20:43:50] sent message to arduino with msg: rp10.00,lp10.00,
 
-[2026-06-27 13:51:00] sent message to arduino with msg: rp0.00,lp0.00,
+[2026-06-29 20:43:51] sent message to arduino with msg: rp0.00,lp0.00,
 
-[2026-06-27 13:51:00] wrote image of raw image to path /home/shourya/yolo/src/main/clicked_images/pic2/captured_image_raw.jpg
-[2026-06-27 13:51:02] wrote image of inferenced image to /home/shourya/yolo/src/main/clicked_images_inference/pic2/captured_image_inferenced.jpg
-[2026-06-27 13:51:03] updated object's number to firebase
-[2026-06-27 13:51:03] updated firebase object's no in take_picture_from_camera()
-[2026-06-27 13:51:03] objects detected on iteration 2: 2
-[2026-06-27 13:51:07] uploaded image to cloudinary and stored url in firebase
-[2026-06-27 13:51:07] updated firebase url for images in take_picture_from_camera()
-[2026-06-27 13:51:07] sent message to arduino with msg: rp10.00,ln10.00,
+[2026-06-29 20:43:51] -------------------number for n is : 2------------------------
+[2026-06-29 20:43:51] sent message to arduino with msg: rp10.00,lp10.00,
 
-[2026-06-27 13:51:07] sent message to arduino with msg: rp0.00,lp0.00,
+[2026-06-29 20:43:54] sent message to arduino with msg: rp0.00,lp0.00,
 
-[2026-06-27 13:51:07] sent message to arduino with msg: rp10.00,lp10.00,
+[2026-06-29 20:43:54] sent message to arduino with msg: rn10.00,lp10.00
 
-[2026-06-27 13:51:08] sent message to arduino with msg: rp0.00,lp0.00,
+[2026-06-29 20:43:55] sent message to arduino with msg: rp0.00,lp0.00,
 
-[2026-06-27 13:51:08] -------------------number for n is : 2------------------------
-[2026-06-27 13:51:08] sent message to arduino with msg: rp10.00,lp10.00,
+[2026-06-29 20:44:00] wrote image of raw image to path /home/shourya/yolo/src/main/clicked_images/pic2/captured_image_raw.jpg
+[2026-06-29 20:44:00] wrote image of inferenced image to /home/shourya/yolo/src/main/clicked_images_inference/pic2/captured_image_inferenced.jpg
+[2026-06-29 20:44:01] updated object's number to firebase
+[2026-06-29 20:44:03] updated firebase object's no in take_picture_from_camera()
+[2026-06-29 20:44:03] objects detected on iteration 2: 0
+[2026-06-29 20:44:03] sent message to arduino with msg: rp10.00,ln10.00,
 
-[2026-06-27 13:51:11] sent message to arduino with msg: rp0.00,lp0.00,
+[2026-06-29 20:44:03] sent message to arduino with msg: rp0.00,lp0.00,
 
-[2026-06-27 13:51:11] sent message to arduino with msg: rn10.00,lp10.00
+[2026-06-29 20:44:03] sent message to arduino with msg: rp10.00,lp10.00,
 
-[2026-06-27 13:51:12] sent message to arduino with msg: rp0.00,lp0.00,
+[2026-06-29 20:44:04] sent message to arduino with msg: rp0.00,lp0.00,
 
-[2026-06-27 13:51:12] wrote image of raw image to path /home/shourya/yolo/src/main/clicked_images/pic3/captured_image_raw.jpg
-[2026-06-27 13:51:12] wrote image of inferenced image to /home/shourya/yolo/src/main/clicked_images_inference/pic3/captured_image_inferenced.jpg
-[2026-06-27 13:51:12] updated object's number to firebase
-[2026-06-27 13:51:12] updated firebase object's no in take_picture_from_camera()
-[2026-06-27 13:51:12] objects detected on iteration 3: 3
-[2026-06-27 13:51:15] uploaded image to cloudinary and stored url in firebase
-[2026-06-27 13:51:15] updated firebase url for images in take_picture_from_camera()
-[2026-06-27 13:51:15] sent message to arduino with msg: rp10.00,ln10.00,
+[2026-06-29 20:44:04] -------------------number for n is : 3------------------------
+[2026-06-29 20:44:04] sent message to arduino with msg: rp10.00,lp10.00,
 
-[2026-06-27 13:51:15] sent message to arduino with msg: rp0.00,lp0.00,
+[2026-06-29 20:44:07] sent message to arduino with msg: rp0.00,lp0.00,
 
-[2026-06-27 13:51:15] sent message to arduino with msg: rp10.00,lp10.00,
+[2026-06-29 20:44:07] sent message to arduino with msg: rn10.00,lp10.00
 
-[2026-06-27 13:51:16] sent message to arduino with msg: rp0.00,lp0.00,
+[2026-06-29 20:44:08] sent message to arduino with msg: rp0.00,lp0.00,
 
-[2026-06-27 13:51:16] -------------------number for n is : 3------------------------
-[2026-06-27 13:51:16] sent message to arduino with msg: rp10.00,lp10.00,
+[2026-06-29 20:44:09] wrote image of raw image to path /home/shourya/yolo/src/main/clicked_images/pic3/captured_image_raw.jpg
+[2026-06-29 20:44:09] wrote image of inferenced image to /home/shourya/yolo/src/main/clicked_images_inference/pic3/captured_image_inferenced.jpg
+[2026-06-29 20:44:10] updated object's number to firebase
+[2026-06-29 20:44:10] updated firebase object's no in take_picture_from_camera()
+[2026-06-29 20:44:10] objects detected on iteration 3: 0
+[2026-06-29 20:44:10] sent message to arduino with msg: rp10.00,ln10.00,
 
-[2026-06-27 13:51:19] sent message to arduino with msg: rp0.00,lp0.00,
+[2026-06-29 20:44:10] sent message to arduino with msg: rp0.00,lp0.00,
 
-[2026-06-27 13:51:19] sent message to arduino with msg: rn10.00,lp10.00
+[2026-06-29 20:44:10] sent message to arduino with msg: rp10.00,lp10.00,
 
-[2026-06-27 13:51:20] sent message to arduino with msg: rp0.00,lp0.00,
+[2026-06-29 20:44:11] sent message to arduino with msg: rp0.00,lp0.00,
 
-[2026-06-27 13:51:20] wrote image of raw image to path /home/shourya/yolo/src/main/clicked_images/pic4/captured_image_raw.jpg
-[2026-06-27 13:51:20] wrote image of inferenced image to /home/shourya/yolo/src/main/clicked_images_inference/pic4/captured_image_inferenced.jpg
-[2026-06-27 13:51:21] updated object's number to firebase
-[2026-06-27 13:51:21] updated firebase object's no in take_picture_from_camera()
-[2026-06-27 13:51:21] objects detected on iteration 4: 0
-[2026-06-27 13:51:21] sent message to arduino with msg: rp10.00,ln10.00,
+[2026-06-29 20:44:11] -------------------number for n is : 4------------------------
+[2026-06-29 20:44:11] sent message to arduino with msg: rp10.00,lp10.00,
 
-[2026-06-27 13:51:21] sent message to arduino with msg: rp0.00,lp0.00,
+[2026-06-29 20:44:14] sent message to arduino with msg: rp0.00,lp0.00,
 
-[2026-06-27 13:51:21] sent message to arduino with msg: rp10.00,lp10.00,
+[2026-06-29 20:44:14] sent message to arduino with msg: rn10.00,lp10.00
 
-[2026-06-27 13:51:22] sent message to arduino with msg: rp0.00,lp0.00,
+[2026-06-29 20:44:15] sent message to arduino with msg: rp0.00,lp0.00,
 
-[2026-06-27 13:51:22] -------------------number for n is : 4------------------------
-[2026-06-27 13:51:22] sent message to arduino with msg: rp10.00,lp10.00,
+[2026-06-29 20:44:15] wrote image of raw image to path /home/shourya/yolo/src/main/clicked_images/pic4/captured_image_raw.jpg
+[2026-06-29 20:44:15] wrote image of inferenced image to /home/shourya/yolo/src/main/clicked_images_inference/pic4/captured_image_inferenced.jpg
+[2026-06-29 20:44:16] updated object's number to firebase
+[2026-06-29 20:44:16] updated firebase object's no in take_picture_from_camera()
+[2026-06-29 20:44:16] objects detected on iteration 4: 0
+[2026-06-29 20:44:16] sent message to arduino with msg: rp10.00,ln10.00,
 
-[2026-06-27 13:51:25] sent message to arduino with msg: rp0.00,lp0.00,
+[2026-06-29 20:44:16] sent message to arduino with msg: rp0.00,lp0.00,
 
-[2026-06-27 13:51:25] sent message to arduino with msg: rn10.00,lp10.00
+[2026-06-29 20:44:16] sent message to arduino with msg: rp10.00,lp10.00,
 
-[2026-06-27 13:51:26] sent message to arduino with msg: rp0.00,lp0.00,
+[2026-06-29 20:44:17] sent message to arduino with msg: rp0.00,lp0.00,
 
-[2026-06-27 13:51:26] wrote image of raw image to path /home/shourya/yolo/src/main/clicked_images/pic1/captured_image_raw.jpg
-[2026-06-27 13:51:26] wrote image of inferenced image to /home/shourya/yolo/src/main/clicked_images_inference/pic1/captured_image_inferenced.jpg
-[2026-06-27 13:51:27] updated object's number to firebase
-[2026-06-27 13:51:27] updated firebase object's no in take_picture_from_camera()
-[2026-06-27 13:51:27] objects detected on iteration 1: 0
-[2026-06-27 13:51:27] sent message to arduino with msg: rp10.00,ln10.00,
+[2026-06-29 20:44:17] closed camera connection
+[2026-06-29 20:44:17] ----------------------------CODE EXECUTION END----------------------------
+[2026-06-29 20:46:31] ROS2 node initialized with params
+[2026-06-29 20:46:31] ----------------------------CODE EXECUTION START----------------------------
+[2026-06-29 20:46:31] initialised cloudinary
+[2026-06-29 20:46:31] initialised firebase
+[2026-06-29 20:46:31] initialised serial at /dev/arduino with 115200
+[2026-06-29 20:46:31] initialised YOLO inference class
+[2026-06-29 20:46:31] initialised image processing class with updater
+[2026-06-29 20:46:31] model exists in path specified, returning YOLO object
+[2026-06-29 20:46:31] source is camera
+[2026-06-29 20:46:31] opened camera successfully
+[2026-06-29 20:46:31] -------------------number for n is : 1------------------------
+[2026-06-29 20:46:31] sent message to arduino with msg: rp10.00,lp10.00,
 
-[2026-06-27 13:51:27] sent message to arduino with msg: rp0.00,lp0.00,
+[2026-06-29 20:46:34] sent message to arduino with msg: rp0.00,lp0.00,
 
-[2026-06-27 13:51:27] sent message to arduino with msg: rp10.00,lp10.00,
+[2026-06-29 20:46:34] sent message to arduino with msg: rn10.00,lp10.00
 
-[2026-06-27 13:51:28] sent message to arduino with msg: rp0.00,lp0.00,
+[2026-06-29 20:46:35] sent message to arduino with msg: rp0.00,lp0.00,
 
-[2026-06-27 13:51:28] closed camera connection
-[2026-06-27 13:51:28] ----------------------------CODE EXECUTION END----------------------------
+[2026-06-29 20:46:35] wrote image of raw image to path /home/shourya/yolo/src/main/clicked_images/pic1/captured_image_raw.jpg
+[2026-06-29 20:46:37] wrote image of inferenced image to /home/shourya/yolo/src/main/clicked_images_inference/pic1/captured_image_inferenced.jpg
+[2026-06-29 20:46:38] updated object's number to firebase
+[2026-06-29 20:46:38] updated firebase object's no in take_picture_from_camera()
+[2026-06-29 20:46:38] objects detected on iteration 1: 0
+[2026-06-29 20:46:38] sent message to arduino with msg: rp10.00,ln10.00,
+
+[2026-06-29 20:46:39] sent message to arduino with msg: rp0.00,lp0.00,
+
+[2026-06-29 20:46:39] sent message to arduino with msg: rp10.00,lp10.00,
+
+[2026-06-29 20:46:40] sent message to arduino with msg: rp0.00,lp0.00,
+
+[2026-06-29 20:46:40] -------------------number for n is : 2------------------------
+[2026-06-29 20:46:40] sent message to arduino with msg: rp10.00,lp10.00,
+
+[2026-06-29 20:46:43] sent message to arduino with msg: rp0.00,lp0.00,
+
+[2026-06-29 20:46:43] sent message to arduino with msg: rn10.00,lp10.00
+
+[2026-06-29 20:46:43] sent message to arduino with msg: rp0.00,lp0.00,
+
+[2026-06-29 20:46:44] wrote image of raw image to path /home/shourya/yolo/src/main/clicked_images/pic2/captured_image_raw.jpg
+[2026-06-29 20:46:44] wrote image of inferenced image to /home/shourya/yolo/src/main/clicked_images_inference/pic2/captured_image_inferenced.jpg
+[2026-06-29 20:46:44] updated object's number to firebase
+[2026-06-29 20:46:44] updated firebase object's no in take_picture_from_camera()
+[2026-06-29 20:46:44] objects detected on iteration 2: 0
+[2026-06-29 20:46:44] sent message to arduino with msg: rp10.00,ln10.00,
+
+[2026-06-29 20:46:45] sent message to arduino with msg: rp0.00,lp0.00,
+
+[2026-06-29 20:46:45] sent message to arduino with msg: rp10.00,lp10.00,
+
+[2026-06-29 20:46:46] sent message to arduino with msg: rp0.00,lp0.00,
+
+[2026-06-29 20:46:46] -------------------number for n is : 3------------------------
+[2026-06-29 20:46:46] sent message to arduino with msg: rp10.00,lp10.00,
+
+[2026-06-29 20:46:49] sent message to arduino with msg: rp0.00,lp0.00,
+
+[2026-06-29 20:46:49] sent message to arduino with msg: rn10.00,lp10.00
+
+[2026-06-29 20:46:49] sent message to arduino with msg: rp0.00,lp0.00,
+
+[2026-06-29 20:46:49] wrote image of raw image to path /home/shourya/yolo/src/main/clicked_images/pic3/captured_image_raw.jpg
+[2026-06-29 20:46:50] wrote image of inferenced image to /home/shourya/yolo/src/main/clicked_images_inference/pic3/captured_image_inferenced.jpg
+[2026-06-29 20:46:50] updated object's number to firebase
+[2026-06-29 20:46:50] updated firebase object's no in take_picture_from_camera()
+[2026-06-29 20:46:50] objects detected on iteration 3: 0
+[2026-06-29 20:46:50] sent message to arduino with msg: rp10.00,ln10.00,
+
+[2026-06-29 20:46:51] sent message to arduino with msg: rp0.00,lp0.00,
+
+[2026-06-29 20:46:51] sent message to arduino with msg: rp10.00,lp10.00,
+
+[2026-06-29 20:46:52] sent message to arduino with msg: rp0.00,lp0.00,
+
+[2026-06-29 20:46:52] -------------------number for n is : 4------------------------
+[2026-06-29 20:46:52] sent message to arduino with msg: rp10.00,lp10.00,
+
+[2026-06-29 20:46:55] sent message to arduino with msg: rp0.00,lp0.00,
+
+[2026-06-29 20:46:55] sent message to arduino with msg: rn10.00,lp10.00
+
+[2026-06-29 20:46:55] sent message to arduino with msg: rp0.00,lp0.00,
+
+[2026-06-29 20:46:55] wrote image of raw image to path /home/shourya/yolo/src/main/clicked_images/pic4/captured_image_raw.jpg
+[2026-06-29 20:46:56] wrote image of inferenced image to /home/shourya/yolo/src/main/clicked_images_inference/pic4/captured_image_inferenced.jpg
+[2026-06-29 20:46:56] updated object's number to firebase
+[2026-06-29 20:46:56] updated firebase object's no in take_picture_from_camera()
+[2026-06-29 20:46:56] objects detected on iteration 4: 0
+[2026-06-29 20:46:56] sent message to arduino with msg: rp10.00,ln10.00,
+
+[2026-06-29 20:46:57] sent message to arduino with msg: rp0.00,lp0.00,
+
+[2026-06-29 20:46:57] sent message to arduino with msg: rp10.00,lp10.00,
+
+[2026-06-29 20:46:58] sent message to arduino with msg: rp0.00,lp0.00,
+
+[2026-06-29 20:46:58] closed camera connection
+[2026-06-29 20:46:58] ----------------------------CODE EXECUTION END----------------------------
+[2026-06-29 20:52:13] ROS2 node initialized with params
+[2026-06-29 20:52:13] ----------------------------CODE EXECUTION START----------------------------
+[2026-06-29 20:52:13] initialised cloudinary
+[2026-06-29 20:52:13] initialised firebase
+[2026-06-29 20:52:13] initialised serial at /dev/arduino with 115200
+[2026-06-29 20:52:13] initialised YOLO inference class
+[2026-06-29 20:52:13] initialised image processing class with updater
+[2026-06-29 20:52:13] model exists in path specified, returning YOLO object
+[2026-06-29 20:52:13] source is camera
+[2026-06-29 20:52:14] opened camera successfully
+[2026-06-29 20:52:14] -------------------number for n is : 1------------------------
+[2026-06-29 20:52:14] sent message to arduino with msg: rp10.00,lp10.00,
+
+[2026-06-29 20:52:17] sent message to arduino with msg: rp0.00,lp0.00,
+
+[2026-06-29 20:52:17] sent message to arduino with msg: rn10.00,lp10.00
+
+[2026-06-29 20:52:18] sent message to arduino with msg: rp0.00,lp0.00,
+
+[2026-06-29 20:52:18] wrote image of raw image to path /home/shourya/yolo/src/main/clicked_images/pic1/captured_image_raw.jpg
+[2026-06-29 20:52:19] wrote image of inferenced image to /home/shourya/yolo/src/main/clicked_images_inference/pic1/captured_image_inferenced.jpg
+[2026-06-29 20:52:21] updated object's number to firebase
+[2026-06-29 20:52:21] updated firebase object's no in take_picture_from_camera()
+[2026-06-29 20:52:21] objects detected on iteration 1: 0
+[2026-06-29 20:52:21] sent message to arduino with msg: rp10.00,ln10.00,
+
+[2026-06-29 20:52:22] sent message to arduino with msg: rp0.00,lp0.00,
+
+[2026-06-29 20:52:24] sent message to arduino with msg: rp10.00,lp10.00,
+
+[2026-06-29 20:52:25] sent message to arduino with msg: rp0.00,lp0.00,
+
+[2026-06-29 20:52:25] -------------------number for n is : 2------------------------
+[2026-06-29 20:52:25] sent message to arduino with msg: rp10.00,lp10.00,
+
+[2026-06-29 20:52:29] sent message to arduino with msg: rp0.00,lp0.00,
+
+[2026-06-29 20:52:29] sent message to arduino with msg: rn10.00,lp10.00
+
+[2026-06-29 20:52:29] sent message to arduino with msg: rp0.00,lp0.00,
+
+[2026-06-29 20:52:30] wrote image of raw image to path /home/shourya/yolo/src/main/clicked_images/pic2/captured_image_raw.jpg
+[2026-06-29 20:52:30] wrote image of inferenced image to /home/shourya/yolo/src/main/clicked_images_inference/pic2/captured_image_inferenced.jpg
+[2026-06-29 20:52:31] updated object's number to firebase
+[2026-06-29 20:52:31] updated firebase object's no in take_picture_from_camera()
+[2026-06-29 20:52:31] objects detected on iteration 2: 0
+[2026-06-29 20:52:31] sent message to arduino with msg: rp10.00,ln10.00,
+
+[2026-06-29 20:52:32] sent message to arduino with msg: rp0.00,lp0.00,
+
+[2026-06-29 20:52:32] sent message to arduino with msg: rp10.00,lp10.00,
+
+[2026-06-29 20:52:33] sent message to arduino with msg: rp0.00,lp0.00,
+
+[2026-06-29 20:52:33] -------------------number for n is : 3------------------------
+[2026-06-29 20:52:33] sent message to arduino with msg: rp10.00,lp10.00,
+
+[2026-06-29 20:52:36] sent message to arduino with msg: rp0.00,lp0.00,
+
+[2026-06-29 20:52:36] sent message to arduino with msg: rn10.00,lp10.00
+
+[2026-06-29 20:52:36] sent message to arduino with msg: rp0.00,lp0.00,
+
+[2026-06-29 20:52:37] wrote image of raw image to path /home/shourya/yolo/src/main/clicked_images/pic3/captured_image_raw.jpg
+[2026-06-29 20:52:37] wrote image of inferenced image to /home/shourya/yolo/src/main/clicked_images_inference/pic3/captured_image_inferenced.jpg
+[2026-06-29 20:52:37] updated object's number to firebase
+[2026-06-29 20:52:37] updated firebase object's no in take_picture_from_camera()
+[2026-06-29 20:52:37] objects detected on iteration 3: 0
+[2026-06-29 20:52:37] sent message to arduino with msg: rp10.00,ln10.00,
+
+[2026-06-29 20:52:38] sent message to arduino with msg: rp0.00,lp0.00,
+
+[2026-06-29 20:52:38] sent message to arduino with msg: rp10.00,lp10.00,
+
+[2026-06-29 20:52:39] sent message to arduino with msg: rp0.00,lp0.00,
+
+[2026-06-29 20:52:39] -------------------number for n is : 4------------------------
+[2026-06-29 20:52:39] sent message to arduino with msg: rp10.00,lp10.00,
+
+[2026-06-29 20:52:42] sent message to arduino with msg: rp0.00,lp0.00,
+
+[2026-06-29 20:52:42] sent message to arduino with msg: rn10.00,lp10.00
+
+[2026-06-29 20:52:42] sent message to arduino with msg: rp0.00,lp0.00,
+
+[2026-06-29 20:52:42] wrote image of raw image to path /home/shourya/yolo/src/main/clicked_images/pic4/captured_image_raw.jpg
+[2026-06-29 20:52:42] wrote image of inferenced image to /home/shourya/yolo/src/main/clicked_images_inference/pic4/captured_image_inferenced.jpg
+[2026-06-29 20:52:43] updated object's number to firebase
+[2026-06-29 20:52:43] updated firebase object's no in take_picture_from_camera()
+[2026-06-29 20:52:43] objects detected on iteration 4: 0
+[2026-06-29 20:52:43] sent message to arduino with msg: rp10.00,ln10.00,
+
+[2026-06-29 20:52:44] sent message to arduino with msg: rp0.00,lp0.00,
+
+[2026-06-29 20:52:44] sent message to arduino with msg: rp10.00,lp10.00,
+
+[2026-06-29 20:52:45] sent message to arduino with msg: rp0.00,lp0.00,
+
+[2026-06-29 20:52:45] closed camera connection
+[2026-06-29 20:52:45] ----------------------------CODE EXECUTION END----------------------------
+[2026-06-29 20:52:59] ROS2 node initialized with params
+[2026-06-29 20:52:59] ----------------------------CODE EXECUTION START----------------------------
+[2026-06-29 20:52:59] initialised cloudinary
+[2026-06-29 20:52:59] initialised firebase
+[2026-06-29 20:52:59] initialised serial at /dev/arduino with 115200
+[2026-06-29 20:52:59] initialised YOLO inference class
+[2026-06-29 20:52:59] initialised image processing class with updater
+[2026-06-29 20:52:59] model exists in path specified, returning YOLO object
+[2026-06-29 20:52:59] source is camera
+[2026-06-29 20:52:59] opened camera successfully
+[2026-06-29 20:52:59] -------------------number for n is : 1------------------------
+[2026-06-29 20:52:59] sent message to arduino with msg: rp10.00,lp10.00,
+
+[2026-06-29 20:53:02] sent message to arduino with msg: rp0.00,lp0.00,
+
+[2026-06-29 20:53:02] sent message to arduino with msg: rn10.00,lp10.00
+
+[2026-06-29 20:53:03] sent message to arduino with msg: rp0.00,lp0.00,
+
+[2026-06-29 20:53:03] wrote image of raw image to path /home/shourya/yolo/src/main/clicked_images/pic1/captured_image_raw.jpg
+[2026-06-29 20:53:05] wrote image of inferenced image to /home/shourya/yolo/src/main/clicked_images_inference/pic1/captured_image_inferenced.jpg
+[2026-06-29 20:53:07] updated object's number to firebase
+[2026-06-29 20:53:10] updated firebase object's no in take_picture_from_camera()
+[2026-06-29 20:53:10] objects detected on iteration 1: 0
+[2026-06-29 20:53:10] sent message to arduino with msg: rp10.00,ln10.00,
+
+[2026-06-29 20:53:10] sent message to arduino with msg: rp0.00,lp0.00,
+
+[2026-06-29 20:53:10] sent message to arduino with msg: rp10.00,lp10.00,
+
+[2026-06-29 20:53:11] sent message to arduino with msg: rp0.00,lp0.00,
+
+[2026-06-29 20:53:11] -------------------number for n is : 2------------------------
+[2026-06-29 20:53:11] sent message to arduino with msg: rp10.00,lp10.00,
+
+[2026-06-29 20:53:14] sent message to arduino with msg: rp0.00,lp0.00,
+
+[2026-06-29 20:53:14] sent message to arduino with msg: rn10.00,lp10.00
+
+[2026-06-29 20:53:15] sent message to arduino with msg: rp0.00,lp0.00,
+
+[2026-06-29 20:53:15] wrote image of raw image to path /home/shourya/yolo/src/main/clicked_images/pic2/captured_image_raw.jpg
+[2026-06-29 20:53:15] wrote image of inferenced image to /home/shourya/yolo/src/main/clicked_images_inference/pic2/captured_image_inferenced.jpg
+[2026-06-29 20:53:16] updated object's number to firebase
+[2026-06-29 20:53:16] updated firebase object's no in take_picture_from_camera()
+[2026-06-29 20:53:16] objects detected on iteration 2: 0
+[2026-06-29 20:53:16] sent message to arduino with msg: rp10.00,ln10.00,
+
+[2026-06-29 20:53:16] sent message to arduino with msg: rp0.00,lp0.00,
+
+[2026-06-29 20:53:16] sent message to arduino with msg: rp10.00,lp10.00,
+
+[2026-06-29 20:53:17] sent message to arduino with msg: rp0.00,lp0.00,
+
+[2026-06-29 20:53:18] -------------------number for n is : 3------------------------
+[2026-06-29 20:53:18] sent message to arduino with msg: rp10.00,lp10.00,
+
+[2026-06-29 20:53:21] sent message to arduino with msg: rp0.00,lp0.00,
+
+[2026-06-29 20:53:21] sent message to arduino with msg: rn10.00,lp10.00
+
+[2026-06-29 20:53:21] sent message to arduino with msg: rp0.00,lp0.00,
+
+[2026-06-29 20:53:21] wrote image of raw image to path /home/shourya/yolo/src/main/clicked_images/pic3/captured_image_raw.jpg
+[2026-06-29 20:53:21] wrote image of inferenced image to /home/shourya/yolo/src/main/clicked_images_inference/pic3/captured_image_inferenced.jpg
+[2026-06-29 20:53:22] updated object's number to firebase
+[2026-06-29 20:53:22] updated firebase object's no in take_picture_from_camera()
+[2026-06-29 20:53:22] objects detected on iteration 3: 0
+[2026-06-29 20:53:22] sent message to arduino with msg: rp10.00,ln10.00,
+
+[2026-06-29 20:53:23] sent message to arduino with msg: rp0.00,lp0.00,
+
+[2026-06-29 20:53:23] sent message to arduino with msg: rp10.00,lp10.00,
+
+[2026-06-29 20:53:24] sent message to arduino with msg: rp0.00,lp0.00,
+
+[2026-06-29 20:53:24] -------------------number for n is : 4------------------------
+[2026-06-29 20:53:24] sent message to arduino with msg: rp10.00,lp10.00,
+
+[2026-06-29 20:53:27] sent message to arduino with msg: rp0.00,lp0.00,
+
+[2026-06-29 20:53:27] sent message to arduino with msg: rn10.00,lp10.00
+
+[2026-06-29 20:53:27] sent message to arduino with msg: rp0.00,lp0.00,
+
+[2026-06-29 20:53:35] wrote image of raw image to path /home/shourya/yolo/src/main/clicked_images/pic4/captured_image_raw.jpg
+[2026-06-29 20:53:35] wrote image of inferenced image to /home/shourya/yolo/src/main/clicked_images_inference/pic4/captured_image_inferenced.jpg
+[2026-06-29 20:53:36] updated object's number to firebase
+[2026-06-29 20:53:36] updated firebase object's no in take_picture_from_camera()
+[2026-06-29 20:53:36] objects detected on iteration 4: 0
+[2026-06-29 20:53:36] sent message to arduino with msg: rp10.00,ln10.00,
+
+[2026-06-29 20:53:36] sent message to arduino with msg: rp0.00,lp0.00,
+
+[2026-06-29 20:53:36] sent message to arduino with msg: rp10.00,lp10.00,
+
+[2026-06-29 20:53:37] sent message to arduino with msg: rp0.00,lp0.00,
+
+[2026-06-29 20:53:37] closed camera connection
+[2026-06-29 20:53:37] ----------------------------CODE EXECUTION END----------------------------
+[2026-06-29 20:54:11] ROS2 node initialized with params
+[2026-06-29 20:54:11] ----------------------------CODE EXECUTION START----------------------------
+[2026-06-29 20:54:11] initialised cloudinary
+[2026-06-29 20:54:12] initialised firebase
+[2026-06-29 20:54:12] initialised serial at /dev/arduino with 115200
+[2026-06-29 20:54:12] initialised YOLO inference class
+[2026-06-29 20:54:12] initialised image processing class with updater
+[2026-06-29 20:54:12] model exists in path specified, returning YOLO object
+[2026-06-29 20:54:12] source is camera
+[2026-06-29 20:54:12] opened camera successfully
+[2026-06-29 20:54:12] -------------------number for n is : 1------------------------
+[2026-06-29 20:54:12] sent message to arduino with msg: rp10.00,lp10.00,
+
+[2026-06-29 20:54:15] sent message to arduino with msg: rp0.00,lp0.00,
+
+[2026-06-29 20:54:15] sent message to arduino with msg: rn10.00,lp10.00
+
+[2026-06-29 20:54:16] sent message to arduino with msg: rp0.00,lp0.00,
+
+[2026-06-29 20:54:16] wrote image of raw image to path /home/shourya/yolo/src/main/clicked_images/pic1/captured_image_raw.jpg
+[2026-06-29 20:54:17] wrote image of inferenced image to /home/shourya/yolo/src/main/clicked_images_inference/pic1/captured_image_inferenced.jpg
+[2026-06-29 20:54:19] updated object's number to firebase
+[2026-06-29 20:54:19] updated firebase object's no in take_picture_from_camera()
+[2026-06-29 20:54:19] objects detected on iteration 1: 0
+[2026-06-29 20:54:19] sent message to arduino with msg: rp10.00,ln10.00,
+
+[2026-06-29 20:54:19] sent message to arduino with msg: rp0.00,lp0.00,
+
+[2026-06-29 20:54:19] sent message to arduino with msg: rp10.00,lp10.00,
+
+[2026-06-29 20:54:20] sent message to arduino with msg: rp0.00,lp0.00,
+
+[2026-06-29 20:54:21] -------------------number for n is : 2------------------------
+[2026-06-29 20:54:21] sent message to arduino with msg: rp10.00,lp10.00,
+
+[2026-06-29 20:54:24] sent message to arduino with msg: rp0.00,lp0.00,
+
+[2026-06-29 20:54:24] sent message to arduino with msg: rn10.00,lp10.00
+
+[2026-06-29 20:54:25] sent message to arduino with msg: rp0.00,lp0.00,
+
+[2026-06-29 20:54:25] wrote image of raw image to path /home/shourya/yolo/src/main/clicked_images/pic2/captured_image_raw.jpg
+[2026-06-29 20:54:25] wrote image of inferenced image to /home/shourya/yolo/src/main/clicked_images_inference/pic2/captured_image_inferenced.jpg
+[2026-06-29 20:54:26] updated object's number to firebase
+[2026-06-29 20:54:30] updated firebase object's no in take_picture_from_camera()
+[2026-06-29 20:54:30] objects detected on iteration 2: 0
+[2026-06-29 20:54:30] sent message to arduino with msg: rp10.00,ln10.00,
+
+[2026-06-29 20:54:31] sent message to arduino with msg: rp0.00,lp0.00,
+
+[2026-06-29 20:54:31] sent message to arduino with msg: rp10.00,lp10.00,
+
+[2026-06-29 20:54:32] sent message to arduino with msg: rp0.00,lp0.00,
+
+[2026-06-29 20:54:32] -------------------number for n is : 3------------------------
+[2026-06-29 20:54:32] sent message to arduino with msg: rp10.00,lp10.00,
+
+[2026-06-29 20:54:35] sent message to arduino with msg: rp0.00,lp0.00,
+
+[2026-06-29 20:54:35] sent message to arduino with msg: rn10.00,lp10.00
+
+[2026-06-29 20:54:35] sent message to arduino with msg: rp0.00,lp0.00,
+
+[2026-06-29 20:54:35] wrote image of raw image to path /home/shourya/yolo/src/main/clicked_images/pic3/captured_image_raw.jpg
+[2026-06-29 20:54:45] wrote image of inferenced image to /home/shourya/yolo/src/main/clicked_images_inference/pic3/captured_image_inferenced.jpg
+[2026-06-29 20:54:45] updated object's number to firebase
+[2026-06-29 20:54:45] updated firebase object's no in take_picture_from_camera()
+[2026-06-29 20:54:45] objects detected on iteration 3: 0
+[2026-06-29 20:54:45] sent message to arduino with msg: rp10.00,ln10.00,
+
+[2026-06-29 20:54:46] sent message to arduino with msg: rp0.00,lp0.00,
+
+[2026-06-29 20:54:46] sent message to arduino with msg: rp10.00,lp10.00,
+
+[2026-06-29 20:54:47] sent message to arduino with msg: rp0.00,lp0.00,
+
+[2026-06-29 20:54:47] -------------------number for n is : 4------------------------
+[2026-06-29 20:54:47] sent message to arduino with msg: rp10.00,lp10.00,
+
+[2026-06-29 20:54:50] sent message to arduino with msg: rp0.00,lp0.00,
+
+[2026-06-29 20:54:51] sent message to arduino with msg: rn10.00,lp10.00
+
+[2026-06-29 20:54:52] sent message to arduino with msg: rp0.00,lp0.00,
+
+[2026-06-29 20:54:52] wrote image of raw image to path /home/shourya/yolo/src/main/clicked_images/pic4/captured_image_raw.jpg
+[2026-06-29 20:54:52] wrote image of inferenced image to /home/shourya/yolo/src/main/clicked_images_inference/pic4/captured_image_inferenced.jpg
+[2026-06-29 20:54:53] updated object's number to firebase
+[2026-06-29 20:54:53] updated firebase object's no in take_picture_from_camera()
+[2026-06-29 20:54:53] objects detected on iteration 4: 0
+[2026-06-29 20:54:53] sent message to arduino with msg: rp10.00,ln10.00,
+
+[2026-06-29 20:54:53] sent message to arduino with msg: rp0.00,lp0.00,
+
+[2026-06-29 20:54:53] sent message to arduino with msg: rp10.00,lp10.00,
+
+[2026-06-29 20:54:54] sent message to arduino with msg: rp0.00,lp0.00,
+
+[2026-06-29 20:54:54] closed camera connection
+[2026-06-29 20:54:54] ----------------------------CODE EXECUTION END----------------------------
