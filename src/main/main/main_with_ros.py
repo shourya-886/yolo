@@ -59,7 +59,7 @@ def log_to_file(message: str, severity: str = "d"):
 
 class SerialOperation:
     def __init__(self, port, baudrate):
-        self.arduino = serial.Serial(port, baudrate)
+        #self.arduino = serial.Serial(port, baudrate)
         log_to_file(f"initialised serial at {port} with {baudrate}")
 
     def send_serial_data(self, direction: str):
@@ -75,7 +75,7 @@ class SerialOperation:
             self.arduino.write(message.encode('utf-8'))
             log_to_file(f"sent message to arduino with msg: {message}")
         else:
-            print("Direction argument fits no options, please recheck")
+            self.get_logger().info("Direction argument fits no options, please recheck")
             log_to_file("wrong direction passed in send_serial_data(), ignoring command", "w")
 
 class Updatation:
@@ -128,7 +128,7 @@ class YoloInference():
             log_to_file("source is image")
             return 'image'
         else:
-            print(f"Error: '{img_source}' is not a valid camera index, folder, or file.")
+            self.get_logger(f"Error: '{img_source}' is not a valid camera index, folder, or file.")
             log_to_file("source is not valid in determine_source_type()", "e")
             sys.exit(1)
 
@@ -232,12 +232,13 @@ class MainNode(Node):
         message.header.frame_id = "key_teleop"
 
         if direction == "forward":
-            message.twist.linear.x = 0.8
+            message.twist.linear.x = 0.5
             message.twist.linear.y = 0.0
             message.twist.linear.z = 0.0
             message.twist.angular.x = 0.0
             message.twist.angular.y = 0.0
             message.twist.angular.z = 0.0
+            self.get_logger().info("in forward")
             
         elif direction == "backward":
             message.twist.linear.x = -0.5
@@ -246,6 +247,7 @@ class MainNode(Node):
             message.twist.angular.x = 0.0
             message.twist.angular.y = 0.0
             message.twist.angular.z = 0.0
+            self.get_logger().info("in backward")
 
         elif direction == "right":
             message.twist.linear.x = 0.0
@@ -254,6 +256,16 @@ class MainNode(Node):
             message.twist.angular.x = 0.0
             message.twist.angular.y = 0.0
             message.twist.angular.z = -1.0
+            self.get_logger().info("in right")
+
+        elif direction == "right_minor":
+            message.twist.linear.x = 0.0
+            message.twist.linear.y = 0.0
+            message.twist.linear.z = 0.0
+            message.twist.angular.x = 0.0
+            message.twist.angular.y = 0.0
+            message.twist.angular.z = -0.5
+            self.get_logger().info("in right_minor")
 
         elif direction == "left":
             message.twist.linear.x = 0.0
@@ -262,6 +274,16 @@ class MainNode(Node):
             message.twist.angular.x = 0.0
             message.twist.angular.y = 0.0
             message.twist.angular.z = 1.0 
+            self.get_logger().info("in left")
+        
+        elif direction == "left_minor":
+            message.twist.linear.x = 0.0
+            message.twist.linear.y = 0.0
+            message.twist.linear.z = 0.0
+            message.twist.angular.x = 0.0
+            message.twist.angular.y = 0.0
+            message.twist.angular.z = 0.4
+            self.get_logger().info("in left_minor")
 
         elif direction == "stop":
             message.twist.linear.x = 0.0
@@ -270,11 +292,13 @@ class MainNode(Node):
             message.twist.angular.x = 0.0
             message.twist.angular.y = 0.0
             message.twist.angular.z = 0.0
+            self.get_logger().info("in stop")
 
         else:
             self.get_logger().info("wrong argument passed to send_command+message()")   
 
         self.cmd_vel_pub.publish(message)
+        self.get_logger().info("publishing message")
 
     def run_code(self):
         log_to_file("----------------------------CODE EXECUTION START----------------------------")
@@ -301,46 +325,257 @@ class MainNode(Node):
 
             cap = img_proc.open_camera(camera_input)
 
-        for n in range(1, 5):
-            print(f"-------------------number for n is : {n}------------------------")
+        for n in range(1, 2):
+            self.get_logger().info(f"-------------------number for n is : {n}------------------------")
             log_to_file(f"-------------------number for n is : {n}------------------------")
-            serial_op.send_serial_data("forward")
-            self.send_command_movement("forward")
 
-            time.sleep(3)
-
-            serial_op.send_serial_data("stop")
-            self.send_command_movement("stop")
+            #----------------------A starts-------------------------
+            start_time = time.time() #0
+            while time.time() - start_time < 3:
+                self.send_command_movement("forward")
+                time.sleep(0.1)
             
-            serial_op.send_serial_data("right")
-            self.send_command_movement("right")
+            time.sleep(2)
+            
+            self.send_command_movement("right") 
+            time.sleep(2.0)
+            self.send_command_movement("right_minor")
 
-            time.sleep(0.5) 
-
-            serial_op.send_serial_data("stop")
-            self.send_command_movement("stop")
             try: 
                 img_proc.take_picture_from_camera(cap, model, min_thresh)
             except IOError as e: 
-                print(f"error in take_picture_from_camera: {e}")
+                self.get_logger(f"error in take_picture_from_camera: {e}")
                 log_to_file(f"error in take_picture_from_camera: {e}", "e")
                 sys.exit(1)
 
-            serial_op.send_serial_data("left")
             self.send_command_movement("left")
+            time.sleep(2.0)
+            self.send_command_movement("left_minor")
+            time.sleep(2.0)
 
-            time.sleep(0.5)
-
-            serial_op.send_serial_data("stop")
-            self.send_command_movement("stop")
+            start_time = time.time() #0
+            while time.time() - start_time < 3:
+                self.send_command_movement("forward")
+                time.sleep(0.1)
             
-            serial_op.send_serial_data("forward")
-            self.send_command_movement("forward")
-            
-            time.sleep(1)
+            time.sleep(2)
 
-            self.send_command_movement("stop")
-            serial_op.send_serial_data("stop")
+            #----------------------A ends-------------------------
+            #----------------------B starts-------------------------
+
+            self.send_command_movement("right")
+            time.sleep(2.0)
+            self.send_command_movement("right_minor")
+            time.sleep(2.0)
+
+            
+            # start_time = time.time() #0
+            # while time.time() - start_time < 3:
+            #     self.send_command_movement("forward")
+            #     time.sleep(0.1)
+            
+            # time.sleep(2)
+
+            # self.send_command_movement("right")
+            # time.sleep(1.0)
+            # self.send_command_movement("right_minor")
+            
+            # try: 
+            #     img_proc.take_picture_from_camera(cap, model, min_thresh)
+            # except IOError as e: 
+            #     self.get_logger(f"error in take_picture_from_camera: {e}")
+            #     log_to_file(f"error in take_picture_from_camera: {e}", "e")
+            #     sys.exit(1)
+
+            # self.send_command_movement("left")
+            # time.sleep(1.0)
+            # self.send_command_movement("left_minor")
+            # time.sleep(1.0)
+
+            # start_time = time.time() #0
+            # while time.time() - start_time < 3:
+            #     self.send_command_movement("forward")
+            #     time.sleep(0.1)
+            
+            # time.sleep(2)
+            # #----------------------B ENDS-------------------------
+            # #----------------------C starts-------------------------
+
+            # self.send_command_movement("right")
+            # time.sleep(1.0)
+            # self.send_command_movement("right_minor")
+
+            
+            # start_time = time.time() #0
+            # while time.time() - start_time < 3:
+            #     self.send_command_movement("forward")
+            #     time.sleep(0.1)
+            
+            # time.sleep(2)
+
+            # self.send_command_movement("right")start_time = time.time() #0
+            # while time.time() - start_time < 3:
+            #     self.send_command_movement("forward")
+            #     time.sleep(0.1)
+            
+            # time.sleep(2)
+
+            # self.send_command_movement("right")
+            # time.sleep(1.0)
+            # self.send_command_movement("right_minor")
+            
+            # try: 
+            #     img_proc.take_picture_from_camera(cap, model, min_thresh)
+            # except IOError as e: 
+            #     self.get_logger(f"error in take_picture_from_camera: {e}")
+            #     log_to_file(f"error in take_picture_from_camera: {e}", "e")
+            #     sys.exit(1)
+
+            # self.send_command_movement("left")
+            # time.sleep(1.0)
+            # self.send_command_movement("left_minor")
+            # time.sleep(1.0)
+
+            # start_time = time.time() #0
+            # while time.time() - start_time < 3:
+            #     self.send_command_movement("forward")
+            #     time.sleep(0.1)
+            
+            # time.sleep(2)
+            # #----------------------B ENDS-------------------------
+            # #----------------------C starts-------------------------
+
+            # self.send_command_movement("right")
+            # time.sleep(1.0)
+            # self.send_command_movement("right_minor")
+
+            
+            # start_time = time.time() #0
+            # while time.time() - start_time < 3:
+            #     self.send_command_movement("forward")
+            #     time.sleep(0.1)
+            
+            # time.sleep(2)
+
+            # self.send_command_movement("right")
+            # time.sleep(1.0)
+            # self.send_command_movement("right_minor")
+            
+            # try: 
+            #     img_proc.take_picture_from_camera(cap, model, min_thresh)
+            # except IOError as e: 
+            #     self.get_logger(f"error in take_picture_from_camera: {e}")
+            #     log_to_file(f"error in take_picture_from_camera: {e}", "e")
+            #     sys.exit(1)
+
+            # self.send_command_movement("left")
+            # time.sleep(1.0)
+            # self.send_command_movement("left_minor")
+            # time.sleep(1.0)
+
+            # start_time = time.time() #0
+            # while time.time() - start_time < 3:
+            #     self.send_command_movement("forward")
+            #     time.sleep(0.1)
+            
+            # time.sleep(2)
+            # #----------------------C ENDS-------------------------
+            # #----------------------D starts-------------------------
+            # self.send_command_movement("right")
+            # time.sleep(1.0)
+            # self.send_command_movement("right_minor")
+
+            
+            # start_time = time.time() #0
+            # while time.time() - start_time < 3:
+            #     self.send_command_movement("forward")
+            #     time.sleep(0.1)
+            
+            # time.sleep(2)
+
+            # self.send_command_movement("right")
+            # time.sleep(1.0)
+            # self.send_command_movement("right_minor")
+            
+            # try: 
+            #     img_proc.take_picture_from_camera(cap, model, min_thresh)
+            # except IOError as e: 
+            #     self.get_logger(f"error in take_picture_from_camera: {e}")
+            #     log_to_file(f"error in take_picture_from_camera: {e}", "e")
+            #     sys.exit(1)
+
+            # self.send_command_movement("left")
+            # time.sleep(1.0)
+            # self.send_command_movement("left_minor")
+            # time.sleep(1.0)
+
+            # start_time = time.time() #0
+            # while time.time() - start_time < 3:
+            #     self.send_command_movement("forward")
+            #     time.sleep(0.1)
+            
+            # time.sleep(2)
+            # #----------------------D ENDS-------------------------
+            # time.sleep(1.0)
+            # self.send_command_movement("right_minor")
+            
+            # try: 
+            #     img_proc.take_picture_from_camera(cap, model, min_thresh)
+            # except IOError as e: 
+            #     self.get_logger(f"error in take_picture_from_camera: {e}")
+            #     log_to_file(f"error in take_picture_from_camera: {e}", "e")
+            #     sys.exit(1)
+
+            # self.send_command_movement("left")
+            # time.sleep(1.0)
+            # self.send_command_movement("left_minor")
+            # time.sleep(1.0)
+
+            # start_time = time.time() #0
+            # while time.time() - start_time < 3:
+            #     self.send_command_movement("forward")
+            #     time.sleep(0.1)
+            
+            # time.sleep(2)
+            # #----------------------C ENDS-------------------------
+            # #----------------------D starts-------------------------
+            # self.send_command_movement("right")
+            # time.sleep(1.0)
+            # self.send_command_movement("right_minor")
+
+            
+            # start_time = time.time() #0
+            # while time.time() - start_time < 3:
+            #     self.send_command_movement("forward")
+            #     time.sleep(0.1)
+            
+            # time.sleep(2)
+
+            # self.send_command_movement("right")
+            # time.sleep(1.0)
+            # self.send_command_movement("right_minor")
+            
+            # try: 
+            #     img_proc.take_picture_from_camera(cap, model, min_thresh)
+            # except IOError as e: 
+            #     self.get_logger(f"error in take_picture_from_camera: {e}")
+            #     log_to_file(f"error in take_picture_from_camera: {e}", "e")
+            #     sys.exit(1)
+
+            # self.send_command_movement("left")
+            # time.sleep(1.0)
+            # self.send_command_movement("left_minor")
+            # time.sleep(1.0)
+
+            # start_time = time.time() #0
+            # while time.time() - start_time < 3:
+            #     self.send_command_movement("forward")
+            #     time.sleep(0.1)
+            
+            # time.sleep(2)
+            # #----------------------D ENDS-------------------------
+
+
 
             if n == 4:
                 cap.release()
