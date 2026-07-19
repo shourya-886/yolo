@@ -36,6 +36,8 @@ setup(
             'cloudinary_firebase_test = main.cloudinary_firebase_test:main', #testing done
             'cloudinary_test = main.cloudinary_test:main', #testing done
             'main_with_ros = main.main_with_ros:main',
+            'testing = main.testing:main',
+            'testing2 = main.testing2:main',
         ],
     },
 )

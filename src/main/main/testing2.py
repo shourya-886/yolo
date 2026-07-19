@@ -3,32 +3,32 @@ import sys
 import argparse
 import time
 
-#Image Processing
+# Image Processing
 import cv2
 
-#Serial
+# Serial
 import serial
 
-#YOLO pkgs
+# YOLO pkgs
 from ultralytics import YOLO
 
-#Firebase
+# Firebase
 import firebase_admin
 from firebase_admin import db, credentials
 
-#Cloudinary
+# Cloudinary
 import cloudinary
 import cloudinary.uploader
 
-#Logging
+# Logging
 from datetime import datetime
-
 
 import rclpy
 from rclpy.node import Node
 from geometry_msgs.msg import TwistStamped
 from sensor_msgs.msg import Imu
 from rclpy.qos import QoSProfile, QoSDurabilityPolicy, QoSReliabilityPolicy
+from rclpy.executors import MultiThreadedExecutor
 
 
 # CONSTANTS
@@ -39,8 +39,7 @@ API_KEY = os.getenv("CLOUDINARY_API_KEY")
 API_SECRET = os.getenv("CLOUDINARY_API_SECRET")
 PORT = '/dev/arduino'
 BAUD_RATE = 115200
-TIME_TO_MOVE_FORWARD = 2.0
-SLEEP_TIME = 2.0
+
 
 def log_to_file(message: str, severity: str = "d"):
     """
@@ -61,9 +60,10 @@ def log_to_file(message: str, severity: str = "d"):
     with open("/home/shourya/yolo/src/main/logs/debug_log.txt", "a") as f:
         f.write(log_entry)
 
+
 class SerialOperation:
     def __init__(self, port, baudrate):
-        #self.arduino = serial.Serial(port, baudrate)
+        # self.arduino = serial.Serial(port, baudrate)
         log_to_file(f"initialised serial at {port} with {baudrate}")
 
     def send_serial_data(self, direction: str):
@@ -81,6 +81,7 @@ class SerialOperation:
         else:
             self.get_logger().info("Direction argument fits no options, please recheck")
             log_to_file("wrong direction passed in send_serial_data(), ignoring command", "w")
+
 
 class Updatation:
     def __init__(self):
@@ -108,6 +109,7 @@ class Updatation:
         db.reference(f"/images/inference{iteration}").set(result2["secure_url"])
         log_to_file("uploaded image to cloudinary and stored url in firebase")
 
+
 class YoloInference():
     def __init__(self):
         log_to_file("initialised YOLO inference class")
@@ -121,7 +123,6 @@ class YoloInference():
         return YOLO(model_path, task='detect')
 
     def determine_source_type(self, img_source):
-        # Support both index (e.g., '0') and path (e.g., '/dev/camera')
         if img_source.isdigit() or img_source == '/dev/camera': 
             log_to_file("source is camera")
             return 'camera'
@@ -135,6 +136,7 @@ class YoloInference():
             self.get_logger(f"Error: '{img_source}' is not a valid camera index, folder, or file.")
             log_to_file("source is not valid in determine_source_type()", "e")
             sys.exit(1)
+
 
 class ImageProcessing:
     def __init__(self, updater):
@@ -207,7 +209,7 @@ class ImageProcessing:
         log_to_file(f"wrote image of inferenced image to {infer_save_path}")
 
         self.updater.update_firebase_objects_detect(any_object_detected, valid_detections_count, pic_count)
-        log_to_file(f"updated firebase object's no in take_picture_from_camera()")
+        log_to_file("updated firebase object's no in take_picture_from_camera()")
 
         print(f"objects {valid_detections_count}")
         log_to_file(f"objects detected on iteration {pic_count}: {valid_detections_count}")
@@ -224,17 +226,23 @@ class MainNode(Node):
         self.declare_parameter('source', '0')
         self.declare_parameter('thresh', 0.5)
 
+        # Fix 1: Initializing variable so it exists prior to subscription triggers
+        self.ang_vel = 0.0
+
         self.qos_profile_pub = QoSProfile(depth=5)
         self.qos_profile_pub.reliability = QoSReliabilityPolicy.BEST_EFFORT
         self.qos_profile_pub.durability = QoSDurabilityPolicy.VOLATILE
 
         self.cmd_vel_pub = self.create_publisher(TwistStamped, "/input_joy/cmd_vel_stamped", 10)
         self.imu_sub = self.create_subscription(Imu, "/imu/out", self.imu_callback, self.qos_profile_pub)
+
         self.timer_ = self.create_timer(1.0, self.timer_callback)
 
         log_to_file("ROS2 node initialized with params")
-        self.ang_vel = 0.0
-       
+
+    def imu_callback(self, msg):
+        self.ang_vel = msg.angular_velocity.z
+        self.get_logger().info("Received IMU data")
 
     def send_command_movement(self, direction):
         direction = direction.lower()
@@ -243,7 +251,7 @@ class MainNode(Node):
         message.header.frame_id = "key_teleop"
 
         if direction == "forward":
-            message.twist.linear.x = 0.7
+            message.twist.linear.x = 0.5
             message.twist.linear.y = 0.0
             message.twist.linear.z = 0.0
             message.twist.angular.x = 0.0
@@ -311,9 +319,6 @@ class MainNode(Node):
         self.cmd_vel_pub.publish(message)
         self.get_logger().info("publishing message")
 
-    def imu_callback(self, msg):
-        self.ang_vel = msg.angular_velocity.z
-
     def timer_callback(self):
         log_to_file("----------------------------CODE EXECUTION START----------------------------")
         updater = Updatation()
@@ -321,7 +326,6 @@ class MainNode(Node):
         yolo_handler = YoloInference()
         img_proc = ImageProcessing(updater)
 
-        # Retrieve parameters
         model_path = self.get_parameter('model').get_parameter_value().string_value
         img_source = self.get_parameter('source').get_parameter_value().string_value
         min_thresh = self.get_parameter('thresh').get_parameter_value().double_value
@@ -329,181 +333,24 @@ class MainNode(Node):
         model = yolo_handler.load_model(model_path)
         source_type = yolo_handler.determine_source_type(img_source)
 
-
         if source_type == 'camera':
             if img_source == '/dev/camera' :
                 camera_input = img_source 
-
             else:
                 camera_input = int(img_source)
 
             cap = img_proc.open_camera(camera_input)
 
-        self.get_logger().info("-------------------number for n is : 1------------------------")
-        log_to_file("-------------------number for n is : 1------------------------")
+        for n in range(1, 2):
+            self.get_logger().info(f"-------------------number for n is : {n}------------------------")
+            log_to_file(f"-------------------number for n is : {n}------------------------")
 
-        #----------------------A starts-------------------------
-        log_to_file("starting movement sequence A")
-        start_time = time.time() #0
-        while time.time() - start_time < TIME_TO_MOVE_FORWARD:
-            self.send_command_movement("forward")
-            time.sleep(0.1)
-        
-        time.sleep(2.0)
-        
-        self.send_command_movement("right") 
-        self.get_logger().info(f"ang_vel: {self.ang_vel}")
-        time.sleep(2.0)
-        self.send_command_movement("right_minor")
-        time.sleep(2.0)
-
-        try: 
-            img_proc.take_picture_from_camera(cap, model, min_thresh)
-        except IOError as e: 
-            self.get_logger(f"error in take_picture_from_camera: {e}")
-            log_to_file(f"error in take_picture_from_camera: {e}", "e")
-            sys.exit(1)
-
-        self.send_command_movement("left")
-        time.sleep(2.0)
-        self.send_command_movement("left_minor")
-        time.sleep(2.0)
-
-        start_time = time.time() #0
-        while time.time() - start_time < TIME_TO_MOVE_FORWARD:
-            self.send_command_movement("forward")
-            time.sleep(0.1)
-        
-        time.sleep(2.0)
-        log_to_file("ending movement sequence A")
-        #----------------------A ends-------------------------
-        #----------------------B starts-------------------------
-        log_to_file("starting movement sequence B")
-        self.send_command_movement("right")
-        self.get_logger().info(f"ang_vel: {self.ang_vel}")
-        time.sleep(2.0)
-        self.send_command_movement("right_minor")
-        time.sleep(2.0)
-
-        
-        start_time = time.time() #0
-        while time.time() - start_time < TIME_TO_MOVE_FORWARD:
-            self.send_command_movement("forward")
-            time.sleep(0.1)
-        
-        time.sleep(2.0)
-
-        self.send_command_movement("right")
-        time.sleep(2.0)
-        self.send_command_movement("right_minor")
-        time.sleep(2.0)
-        
-        try: 
-            img_proc.take_picture_from_camera(cap, model, min_thresh)
-        except IOError as e: 
-            self.get_logger(f"error in take_picture_from_camera: {e}")
-            log_to_file(f"error in take_picture_from_camera: {e}", "e")
-            sys.exit(1)
-
-        self.send_command_movement("left")
-        time.sleep(2.0)
-        self.send_command_movement("left_minor")
-        time.sleep(2.0)
-
-        start_time = time.time() #0
-        while time.time() - start_time < TIME_TO_MOVE_FORWARD:
-            self.send_command_movement("forward")
-            time.sleep(0.1)
-        
-        time.sleep(2.0)
-        log_to_file("ending movement sequence B")
-        #----------------------B ENDS-------------------------
-        #----------------------C starts-------------------------
-        log_to_file("starting movement sequence C")
-
-        self.send_command_movement("right")
-        self.get_logger().info(f"ang_vel: {self.ang_vel}")
-        time.sleep(2.0)
-        self.send_command_movement("right_minor")
-        time.sleep(2.0)
-
-        
-        start_time = time.time() #0
-        while time.time() - start_time < TIME_TO_MOVE_FORWARD:
-            self.send_command_movement("forward")
-            time.sleep(0.1)
-        
-        time.sleep(2)
-
-        self.send_command_movement("right")
-        time.sleep(2.0)
-        self.send_command_movement("right_minor")
-        time.sleep(2.0)
-
-        try: 
-            img_proc.take_picture_from_camera(cap, model, min_thresh)
-        except IOError as e: 
-            self.get_logger(f"error in take_picture_from_camera: {e}")
-            log_to_file(f"error in take_picture_from_camera: {e}", "e")
-            sys.exit(1)
-
-        self.send_command_movement("left")
-        time.sleep(2.0)
-        self.send_command_movement("left_minor")
-        time.sleep(2.0)
-
-        start_time = time.time() #0
-        while time.time() - start_time < TIME_TO_MOVE_FORWARD:
-            self.send_command_movement("forward")
-            time.sleep(0.1)
-        
-        time.sleep(2.0)
-        log_to_file("ending movement sequence C")
-        #----------------------C ENDS-------------------------
-        #----------------------D starts-------------------------
-        log_to_file("starting movement sequence D")
-        self.send_command_movement("right")
-        self.get_logger().info(f"ang_vel: {self.ang_vel}")
-        time.sleep(2.0)
-        self.send_command_movement("right_minor")
-        time.sleep(2.0)
-
-        
-        start_time = time.time() #0
-        while time.time() - start_time < TIME_TO_MOVE_FORWARD:
-            self.send_command_movement("forward")
-            time.sleep(0.1)
-        
-        time.sleep(2.0)
-
-        self.send_command_movement("right")
-        time.sleep(2.0)
-        self.send_command_movement("right_minor")
-        time.sleep(2.0)
-        
-        try: 
-            img_proc.take_picture_from_camera(cap, model, min_thresh)
-        except IOError as e: 
-            self.get_logger(f"error in take_picture_from_camera: {e}")
-            log_to_file(f"error in take_picture_from_camera: {e}", "e")
-            sys.exit(1)
-
-        self.send_command_movement("left")
-        time.sleep(2.0)
-        self.send_command_movement("left_minor")
-        time.sleep(2.0)
-
-        start_time = time.time() #0
-        while time.time() - start_time < TIME_TO_MOVE_FORWARD:
-            self.send_command_movement("forward")
-            time.sleep(0.1)
-        
-        time.sleep(2.0)
-        log_to_file("ending movement sequence D")
-        #----------------------D ENDS-------------------------
-
-        cap.release()
-        log_to_file("closed camera connection")
+            time.sleep(2)
+            
+            # Fix 2: Added a minor yield delay so threading can cycle incoming IMU messages smoothly
+            while self.ang_vel < 0.167:
+                self.send_command_movement("right")
+                time.sleep(0.01) 
 
         log_to_file("----------------------------CODE EXECUTION END----------------------------")
         self.timer_.cancel()
@@ -512,9 +359,19 @@ class MainNode(Node):
 def main():
     rclpy.init()
     main_node = MainNode()
-    rclpy.spin(main_node)
-    main_node.destroy_node()
-    rclpy.shutdown()
+    
+    # Fix 3: Implemented MultiThreadedExecutor to separate subscriber and timer execution
+    executor = MultiThreadedExecutor()
+    executor.add_node(main_node)
+    
+    try:
+        executor.spin()
+    except KeyboardInterrupt:
+        pass
+    finally:
+        main_node.destroy_node()
+        rclpy.shutdown()
+
 
 if __name__ == '__main__':
     main()
