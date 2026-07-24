@@ -50,14 +50,14 @@ def log_to_file(message: str, severity: str = "d"):
     Default 'd': Standard log.
     """
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-    
+
     if severity.lower() == "e":
         log_entry = f"[{timestamp}] ERROR ----------{message}----------\n"
     elif severity.lower() == "w":
         log_entry = f"[{timestamp}] WARN {message}\n"
     else:
         log_entry = f"[{timestamp}] {message}\n"
-    
+
     with open("/home/shourya/yolo/src/main/logs/debug_log.txt", "a") as f:
         f.write(log_entry)
 
@@ -122,13 +122,13 @@ class YoloInference():
 
     def determine_source_type(self, img_source):
         # Support both index (e.g., '0') and path (e.g., '/dev/camera')
-        if img_source.isdigit() or img_source == '/dev/camera': 
+        if img_source.isdigit() or img_source == '/dev/camera':
             log_to_file("source is camera")
             return 'camera'
-        elif os.path.isdir(img_source): 
+        elif os.path.isdir(img_source):
             log_to_file("source is folder")
             return 'folder'
-        elif os.path.isfile(img_source): 
+        elif os.path.isfile(img_source):
             log_to_file("source is image")
             return 'image'
         else:
@@ -158,32 +158,32 @@ class ImageProcessing:
 
     def open_camera(self, camera_input):
         cap = cv2.VideoCapture(camera_input)
-        if not cap.isOpened(): 
+        if not cap.isOpened():
             log_to_file(f"could not open camera, check source specified {camera_input}", "e")
             sys.exit(1)
-        
+
         log_to_file("opened camera successfully")
         return cap
 
     def take_picture_from_camera(self, cap, model, min_thresh):
         pic_count = self.get_and_increment_counter()
         folder_name = f"pic{pic_count}"
-        
+
         current_raw_dir = os.path.join(CLICKED_DIR, folder_name)
         current_infer_dir = os.path.join(OUTPUT_DIR, folder_name)
-        
+
         os.makedirs(current_raw_dir, exist_ok=True)
         os.makedirs(current_infer_dir, exist_ok=True)
-        
+
         for folder in [current_raw_dir, current_infer_dir]:
             for filename in os.listdir(folder):
                 file_path = os.path.join(folder, filename)
                 if os.path.isfile(file_path): os.unlink(file_path)
-        
+
         for _ in range(2): cap.read()
         ret, frame = cap.read()
-        
-        if not ret: 
+
+        if not ret:
             log_to_file("raised a IOerror error, failed to capture image", "e")
             raise IOError(f"Failed to capture image from camera at iteration {pic_count}")
 
@@ -193,7 +193,7 @@ class ImageProcessing:
 
         results = model(frame, verbose=False)
         detections = results[0].boxes
-        
+
         any_object_detected = False
         valid_detections_count = 0
         for i in range(len(detections)):
@@ -211,7 +211,7 @@ class ImageProcessing:
 
         print(f"objects {valid_detections_count}")
         log_to_file(f"objects detected on iteration {pic_count}: {valid_detections_count}")
-        
+
         if any_object_detected:
             self.updater.update_firebase_url(raw_save_path, infer_save_path, pic_count)
             log_to_file("updated firebase url for images in take_picture_from_camera()")
@@ -230,11 +230,39 @@ class MainNode(Node):
 
         self.cmd_vel_pub = self.create_publisher(TwistStamped, "/input_joy/cmd_vel_stamped", 10)
         self.imu_sub = self.create_subscription(Imu, "/imu/out", self.imu_callback, self.qos_profile_pub)
-        self.timer_ = self.create_timer(1.0, self.timer_callback)
 
-        log_to_file("ROS2 node initialized with params")
         self.ang_vel = 0.0
-       
+
+        # --- STEP 1 OPTIMIZATION ---
+        # Read parameters ONCE here instead of on every timer_callback() call.
+        model_path = self.get_parameter('model').get_parameter_value().string_value
+        img_source = self.get_parameter('source').get_parameter_value().string_value
+        self.min_thresh = self.get_parameter('thresh').get_parameter_value().double_value
+
+        # Create all long-lived, heavy objects ONCE at node startup.
+        # Previously these were re-created inside timer_callback() on every call,
+        # which re-initialized Firebase, reloaded the YOLO model (new CUDA/cuBLAS
+        # context), and re-opened the camera every time -> GPU memory exhaustion
+        # (CUBLAS_STATUS_ALLOC_FAILED) and a Firebase re-init crash on any 2nd call.
+        self.updater = Updatation()
+        self.serial_op = SerialOperation(PORT, BAUD_RATE)
+        self.yolo_handler = YoloInference()
+        self.img_proc = ImageProcessing(self.updater)
+
+        self.model = self.yolo_handler.load_model(model_path)
+        self.source_type = self.yolo_handler.determine_source_type(img_source)
+
+        self.cap = None
+        if self.source_type == 'camera':
+            if img_source == '/dev/camera':
+                camera_input = img_source
+            else:
+                camera_input = int(img_source)
+            self.cap = self.img_proc.open_camera(camera_input)
+        # --- END STEP 1 OPTIMIZATION ---
+
+        self.timer_ = self.create_timer(1.0, self.timer_callback)
+        log_to_file("ROS2 node initialized with params")
 
     def send_command_movement(self, direction):
         direction = direction.lower()
@@ -250,7 +278,7 @@ class MainNode(Node):
             message.twist.angular.y = 0.0
             message.twist.angular.z = 0.0
             self.get_logger().info("in forward")
-            
+
         elif direction == "backward":
             message.twist.linear.x = -0.5
             message.twist.linear.y = 0.0
@@ -284,9 +312,9 @@ class MainNode(Node):
             message.twist.linear.z = 0.0
             message.twist.angular.x = 0.0
             message.twist.angular.y = 0.0
-            message.twist.angular.z = 1.0 
+            message.twist.angular.z = 1.0
             self.get_logger().info("in left")
-        
+
         elif direction == "left_minor":
             message.twist.linear.x = 0.0
             message.twist.linear.y = 0.0
@@ -306,7 +334,7 @@ class MainNode(Node):
             self.get_logger().info("in stop")
 
         else:
-            self.get_logger().info("wrong argument passed to send_command+message()")   
+            self.get_logger().info("wrong argument passed to send_command+message()")
 
         self.cmd_vel_pub.publish(message)
         self.get_logger().info("publishing message")
@@ -316,28 +344,11 @@ class MainNode(Node):
 
     def timer_callback(self):
         log_to_file("----------------------------CODE EXECUTION START----------------------------")
-        updater = Updatation()
-        serial_op = SerialOperation(PORT, BAUD_RATE)
-        yolo_handler = YoloInference()
-        img_proc = ImageProcessing(updater)
 
-        # Retrieve parameters
-        model_path = self.get_parameter('model').get_parameter_value().string_value
-        img_source = self.get_parameter('source').get_parameter_value().string_value
-        min_thresh = self.get_parameter('thresh').get_parameter_value().double_value
-
-        model = yolo_handler.load_model(model_path)
-        source_type = yolo_handler.determine_source_type(img_source)
-
-
-        if source_type == 'camera':
-            if img_source == '/dev/camera' :
-                camera_input = img_source 
-
-            else:
-                camera_input = int(img_source)
-
-            cap = img_proc.open_camera(camera_input)
+        # --- STEP 1 OPTIMIZATION ---
+        # No more re-creating updater / serial_op / yolo_handler / img_proc / model /
+        # camera here. We reuse the ones created once in __init__.
+        # --- END STEP 1 OPTIMIZATION ---
 
         self.get_logger().info("-------------------number for n is : 1------------------------")
         log_to_file("-------------------number for n is : 1------------------------")
@@ -348,18 +359,18 @@ class MainNode(Node):
         while time.time() - start_time < TIME_TO_MOVE_FORWARD:
             self.send_command_movement("forward")
             time.sleep(0.1)
-        
+
         time.sleep(2.0)
-        
-        self.send_command_movement("left") 
+
+        self.send_command_movement("left")
         self.get_logger().info(f"ang_vel: {self.ang_vel}")
         time.sleep(2.0)
         self.send_command_movement("left_minor")
         time.sleep(2.0)
 
-        try: 
-            img_proc.take_picture_from_camera(cap, model, min_thresh)
-        except IOError as e: 
+        try:
+            self.img_proc.take_picture_from_camera(self.cap, self.model, self.min_thresh)
+        except IOError as e:
             self.get_logger(f"error in take_picture_from_camera: {e}")
             log_to_file(f"error in take_picture_from_camera: {e}", "e")
             sys.exit(1)
@@ -373,7 +384,7 @@ class MainNode(Node):
         while time.time() - start_time < TIME_TO_MOVE_FORWARD:
             self.send_command_movement("forward")
             time.sleep(0.1)
-        
+
         # time.sleep(2.0)
         # log_to_file("ending movement sequence A")
         # #----------------------A ends-------------------------
@@ -385,22 +396,22 @@ class MainNode(Node):
         # self.send_command_movement("right_minor")
         # time.sleep(2.0)
 
-        
+
         # start_time = time.time() #0
         # while time.time() - start_time < TIME_TO_MOVE_FORWARD:
         #     self.send_command_movement("forward")
         #     time.sleep(0.1)
-        
+
         # time.sleep(2.0)
 
         # self.send_command_movement("right")
         # time.sleep(2.0)
         # self.send_command_movement("right_minor")
         # time.sleep(2.0)
-        
-        # try: 
+
+        # try:
         #     img_proc.take_picture_from_camera(cap, model, min_thresh)
-        # except IOError as e: 
+        # except IOError as e:
         #     self.get_logger(f"error in take_picture_from_camera: {e}")
         #     log_to_file(f"error in take_picture_from_camera: {e}", "e")
         #     sys.exit(1)
@@ -414,7 +425,7 @@ class MainNode(Node):
         # while time.time() - start_time < TIME_TO_MOVE_FORWARD:
         #     self.send_command_movement("forward")
         #     time.sleep(0.1)
-        
+
         # time.sleep(2.0)
         # log_to_file("ending movement sequence B")
         # #----------------------B ENDS-------------------------
@@ -427,12 +438,12 @@ class MainNode(Node):
         # self.send_command_movement("right_minor")
         # time.sleep(2.0)
 
-        
+
         # start_time = time.time() #0
         # while time.time() - start_time < TIME_TO_MOVE_FORWARD:
         #     self.send_command_movement("forward")
         #     time.sleep(0.1)
-        
+
         # time.sleep(2)
 
         # self.send_command_movement("right")
@@ -440,9 +451,9 @@ class MainNode(Node):
         # self.send_command_movement("right_minor")
         # time.sleep(2.0)
 
-        # try: 
+        # try:
         #     img_proc.take_picture_from_camera(cap, model, min_thresh)
-        # except IOError as e: 
+        # except IOError as e:
         #     self.get_logger(f"error in take_picture_from_camera: {e}")
         #     log_to_file(f"error in take_picture_from_camera: {e}", "e")
         #     sys.exit(1)
@@ -456,7 +467,7 @@ class MainNode(Node):
         # while time.time() - start_time < TIME_TO_MOVE_FORWARD:
         #     self.send_command_movement("forward")
         #     time.sleep(0.1)
-        
+
         # time.sleep(2.0)
         # log_to_file("ending movement sequence C")
         # #----------------------C ENDS-------------------------
@@ -468,22 +479,22 @@ class MainNode(Node):
         # self.send_command_movement("right_minor")
         # time.sleep(2.0)
 
-        
+
         # start_time = time.time() #0
         # while time.time() - start_time < TIME_TO_MOVE_FORWARD:
         #     self.send_command_movement("forward")
         #     time.sleep(0.1)
-        
+
         # time.sleep(2.0)
 
         # self.send_command_movement("right")
         # time.sleep(2.0)
         # self.send_command_movement("right_minor")
         # time.sleep(2.0)
-        
-        # try: 
+
+        # try:
         #     img_proc.take_picture_from_camera(cap, model, min_thresh)
-        # except IOError as e: 
+        # except IOError as e:
         #     self.get_logger(f"error in take_picture_from_camera: {e}")
         #     log_to_file(f"error in take_picture_from_camera: {e}", "e")
         #     sys.exit(1)
@@ -497,16 +508,23 @@ class MainNode(Node):
         # while time.time() - start_time < TIME_TO_MOVE_FORWARD:
         #     self.send_command_movement("forward")
         #     time.sleep(0.1)
-        
+
         # time.sleep(2.0)
         # log_to_file("ending movement sequence D")
         # #----------------------D ENDS-------------------------
 
-        cap.release()
-        log_to_file("closed camera connection")
-
         log_to_file("----------------------------CODE EXECUTION END----------------------------")
         self.timer_.cancel()
+
+    def destroy_node(self):
+        # --- STEP 1 OPTIMIZATION ---
+        # Release the camera exactly once, on node shutdown, instead of inside
+        # timer_callback(). Guarded so it's safe even if cap was never opened.
+        if getattr(self, "cap", None) is not None:
+            self.cap.release()
+            log_to_file("closed camera connection")
+        # --- END STEP 1 OPTIMIZATION ---
+        super().destroy_node()
 
 
 def main():
