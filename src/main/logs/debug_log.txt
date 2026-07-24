@@ -260,3 +260,76 @@
 [2026-07-20 01:16:07] ending movement sequence D
 [2026-07-20 01:16:07] closed camera connection
 [2026-07-20 01:16:07] ----------------------------CODE EXECUTION END----------------------------
+[2026-07-21 21:57:17] ROS2 node initialized with params
+[2026-07-21 21:57:18] ----------------------------CODE EXECUTION START----------------------------
+[2026-07-21 21:57:18] initialised cloudinary
+[2026-07-21 21:57:19] initialised firebase
+[2026-07-21 21:57:19] initialised serial at /dev/arduino with 115200
+[2026-07-21 21:57:19] initialised YOLO inference class
+[2026-07-21 21:57:19] initialised image processing class with updater
+[2026-07-21 21:57:19] model exists in path specified, returning YOLO object
+[2026-07-21 21:57:19] source is camera
+[2026-07-21 21:57:19] opened camera successfully
+[2026-07-21 21:57:19] -------------------number for n is : 1------------------------
+[2026-07-21 21:57:19] starting movement sequence A
+[2026-07-21 21:57:28] wrote image of raw image to path /home/shourya/yolo/src/main/clicked_images/pic2/captured_image_raw.jpg
+[2026-07-21 21:57:34] wrote image of inferenced image to /home/shourya/yolo/src/main/clicked_images_inference/pic2/captured_image_inferenced.jpg
+[2026-07-21 21:57:36] updated object's number to firebase
+[2026-07-21 21:57:36] updated firebase object's no in take_picture_from_camera()
+[2026-07-21 21:57:36] objects detected on iteration 2: 0
+[2026-07-21 21:57:44] ending movement sequence A
+[2026-07-21 21:57:44] starting movement sequence B
+[2026-07-21 21:57:56] wrote image of raw image to path /home/shourya/yolo/src/main/clicked_images/pic3/captured_image_raw.jpg
+[2026-07-21 21:57:56] wrote image of inferenced image to /home/shourya/yolo/src/main/clicked_images_inference/pic3/captured_image_inferenced.jpg
+[2026-07-21 21:57:58] updated object's number to firebase
+[2026-07-21 21:57:58] updated firebase object's no in take_picture_from_camera()
+[2026-07-21 21:57:58] objects detected on iteration 3: 0
+[2026-07-21 21:58:06] ending movement sequence B
+[2026-07-21 21:58:06] starting movement sequence C
+[2026-07-21 21:58:18] wrote image of raw image to path /home/shourya/yolo/src/main/clicked_images/pic4/captured_image_raw.jpg
+[2026-07-21 21:58:18] wrote image of inferenced image to /home/shourya/yolo/src/main/clicked_images_inference/pic4/captured_image_inferenced.jpg
+[2026-07-21 21:58:19] updated object's number to firebase
+[2026-07-21 21:58:19] updated firebase object's no in take_picture_from_camera()
+[2026-07-21 21:58:19] objects detected on iteration 4: 2
+[2026-07-21 21:58:29] uploaded image to cloudinary and stored url in firebase
+[2026-07-21 21:58:29] updated firebase url for images in take_picture_from_camera()
+[2026-07-21 21:58:37] ending movement sequence C
+[2026-07-21 21:58:37] starting movement sequence D
+[2026-07-21 21:58:49] wrote image of raw image to path /home/shourya/yolo/src/main/clicked_images/pic1/captured_image_raw.jpg
+[2026-07-21 21:58:49] wrote image of inferenced image to /home/shourya/yolo/src/main/clicked_images_inference/pic1/captured_image_inferenced.jpg
+[2026-07-21 21:58:50] updated object's number to firebase
+[2026-07-21 21:58:50] updated firebase object's no in take_picture_from_camera()
+[2026-07-21 21:58:50] objects detected on iteration 1: 1
+[2026-07-21 21:58:56] uploaded image to cloudinary and stored url in firebase
+[2026-07-21 21:58:56] updated firebase url for images in take_picture_from_camera()
+[2026-07-21 21:59:04] ending movement sequence D
+[2026-07-21 21:59:04] closed camera connection
+[2026-07-21 21:59:04] ----------------------------CODE EXECUTION END----------------------------
+[2026-07-21 22:00:19] ROS2 node initialized with params
+[2026-07-21 22:00:20] ----------------------------CODE EXECUTION START----------------------------
+[2026-07-21 22:00:20] initialised cloudinary
+[2026-07-21 22:00:20] initialised firebase
+[2026-07-21 22:00:20] initialised serial at /dev/arduino with 115200
+[2026-07-21 22:00:20] initialised YOLO inference class
+[2026-07-21 22:00:20] initialised image processing class with updater
+[2026-07-21 22:00:20] model exists in path specified, returning YOLO object
+[2026-07-21 22:00:20] source is camera
+[2026-07-21 22:00:21] opened camera successfully
+[2026-07-21 22:00:21] -------------------number for n is : 1------------------------
+[2026-07-21 22:00:21] starting movement sequence A
+[2026-07-21 22:00:29] wrote image of raw image to path /home/shourya/yolo/src/main/clicked_images/pic2/captured_image_raw.jpg
+[2026-07-21 22:00:31] wrote image of inferenced image to /home/shourya/yolo/src/main/clicked_images_inference/pic2/captured_image_inferenced.jpg
+[2026-07-21 22:00:38] updated object's number to firebase
+[2026-07-21 22:00:38] updated firebase object's no in take_picture_from_camera()
+[2026-07-21 22:00:38] objects detected on iteration 2: 2
+[2026-07-21 22:00:43] uploaded image to cloudinary and stored url in firebase
+[2026-07-21 22:00:43] updated firebase url for images in take_picture_from_camera()
+[2026-07-21 22:00:51] ending movement sequence A
+[2026-07-21 22:00:51] starting movement sequence B
+[2026-07-21 22:01:03] wrote image of raw image to path /home/shourya/yolo/src/main/clicked_images/pic3/captured_image_raw.jpg
+[2026-07-21 22:01:03] wrote image of inferenced image to /home/shourya/yolo/src/main/clicked_images_inference/pic3/captured_image_inferenced.jpg
+[2026-07-21 22:01:04] updated object's number to firebase
+[2026-07-21 22:01:04] updated firebase object's no in take_picture_from_camera()
+[2026-07-21 22:01:04] objects detected on iteration 3: 2
+[2026-07-21 22:01:08] uploaded image to cloudinary and stored url in firebase
+[2026-07-21 22:01:08] updated firebase url for images in take_picture_from_camera()
