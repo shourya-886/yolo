@@ -345,11 +345,6 @@ class MainNode(Node):
     def timer_callback(self):
         log_to_file("----------------------------CODE EXECUTION START----------------------------")
 
-        # --- STEP 1 OPTIMIZATION ---
-        # No more re-creating updater / serial_op / yolo_handler / img_proc / model /
-        # camera here. We reuse the ones created once in __init__.
-        # --- END STEP 1 OPTIMIZATION ---
-
         self.get_logger().info("-------------------number for n is : 1------------------------")
         log_to_file("-------------------number for n is : 1------------------------")
 
