@@ -333,3 +333,113 @@
 [2026-07-21 22:01:04] objects detected on iteration 3: 2
 [2026-07-21 22:01:08] uploaded image to cloudinary and stored url in firebase
 [2026-07-21 22:01:08] updated firebase url for images in take_picture_from_camera()
+[2026-07-24 07:17:43] ROS2 node initialized with params
+[2026-07-24 07:17:44] ----------------------------CODE EXECUTION START----------------------------
+[2026-07-24 07:17:44] initialised cloudinary
+[2026-07-24 07:17:45] initialised firebase
+[2026-07-24 07:17:45] initialised serial at /dev/arduino with 115200
+[2026-07-24 07:17:45] initialised YOLO inference class
+[2026-07-24 07:17:45] initialised image processing class with updater
+[2026-07-24 07:17:45] model exists in path specified, returning YOLO object
+[2026-07-24 07:17:45] source is camera
+[2026-07-24 07:17:45] opened camera successfully
+[2026-07-24 07:17:45] -------------------number for n is : 1------------------------
+[2026-07-24 07:17:45] starting movement sequence A
+[2026-07-24 07:17:47] closed camera connection
+[2026-07-24 07:17:47] ----------------------------CODE EXECUTION END----------------------------
+[2026-07-24 07:23:21] ROS2 node initialized with params
+[2026-07-24 07:23:22] ----------------------------CODE EXECUTION START----------------------------
+[2026-07-24 07:23:22] initialised cloudinary
+[2026-07-24 07:23:23] initialised firebase
+[2026-07-24 07:23:23] initialised serial at /dev/arduino with 115200
+[2026-07-24 07:23:23] initialised YOLO inference class
+[2026-07-24 07:23:23] initialised image processing class with updater
+[2026-07-24 07:23:23] model exists in path specified, returning YOLO object
+[2026-07-24 07:23:23] source is camera
+[2026-07-24 07:23:23] opened camera successfully
+[2026-07-24 07:23:23] -------------------number for n is : 1------------------------
+[2026-07-24 07:23:23] starting movement sequence A
+[2026-07-24 07:23:29] closed camera connection
+[2026-07-24 07:23:29] ----------------------------CODE EXECUTION END----------------------------
+[2026-07-24 07:24:57] ROS2 node initialized with params
+[2026-07-24 07:24:58] ----------------------------CODE EXECUTION START----------------------------
+[2026-07-24 07:24:58] initialised cloudinary
+[2026-07-24 07:24:58] initialised firebase
+[2026-07-24 07:24:58] initialised serial at /dev/arduino with 115200
+[2026-07-24 07:24:58] initialised YOLO inference class
+[2026-07-24 07:24:58] initialised image processing class with updater
+[2026-07-24 07:24:58] model exists in path specified, returning YOLO object
+[2026-07-24 07:24:58] source is camera
+[2026-07-24 07:24:59] opened camera successfully
+[2026-07-24 07:24:59] -------------------number for n is : 1------------------------
+[2026-07-24 07:24:59] starting movement sequence A
+[2026-07-24 07:25:05] closed camera connection
+[2026-07-24 07:25:05] ----------------------------CODE EXECUTION END----------------------------
+[2026-07-24 07:27:51] ROS2 node initialized with params
+[2026-07-24 07:27:52] ----------------------------CODE EXECUTION START----------------------------
+[2026-07-24 07:27:52] initialised cloudinary
+[2026-07-24 07:27:52] initialised firebase
+[2026-07-24 07:27:52] initialised serial at /dev/arduino with 115200
+[2026-07-24 07:27:52] initialised YOLO inference class
+[2026-07-24 07:27:52] initialised image processing class with updater
+[2026-07-24 07:27:52] model exists in path specified, returning YOLO object
+[2026-07-24 07:27:52] source is camera
+[2026-07-24 07:27:52] opened camera successfully
+[2026-07-24 07:27:52] -------------------number for n is : 1------------------------
+[2026-07-24 07:27:52] starting movement sequence A
+[2026-07-24 07:28:00] closed camera connection
+[2026-07-24 07:28:00] ----------------------------CODE EXECUTION END----------------------------
+[2026-07-24 07:29:35] ROS2 node initialized with params
+[2026-07-24 07:29:36] ----------------------------CODE EXECUTION START----------------------------
+[2026-07-24 07:29:36] initialised cloudinary
+[2026-07-24 07:29:36] initialised firebase
+[2026-07-24 07:29:36] initialised serial at /dev/arduino with 115200
+[2026-07-24 07:29:36] initialised YOLO inference class
+[2026-07-24 07:29:36] initialised image processing class with updater
+[2026-07-24 07:29:36] model exists in path specified, returning YOLO object
+[2026-07-24 07:29:36] source is camera
+[2026-07-24 07:29:36] opened camera successfully
+[2026-07-24 07:29:36] -------------------number for n is : 1------------------------
+[2026-07-24 07:29:36] starting movement sequence A
+[2026-07-24 07:29:44] closed camera connection
+[2026-07-24 07:29:44] ----------------------------CODE EXECUTION END----------------------------
+[2026-07-24 07:30:44] ROS2 node initialized with params
+[2026-07-24 07:30:45] ----------------------------CODE EXECUTION START----------------------------
+[2026-07-24 07:30:45] initialised cloudinary
+[2026-07-24 07:30:45] initialised firebase
+[2026-07-24 07:30:45] initialised serial at /dev/arduino with 115200
+[2026-07-24 07:30:45] initialised YOLO inference class
+[2026-07-24 07:30:45] initialised image processing class with updater
+[2026-07-24 07:30:45] model exists in path specified, returning YOLO object
+[2026-07-24 07:30:45] source is camera
+[2026-07-24 07:30:45] opened camera successfully
+[2026-07-24 07:30:45] -------------------number for n is : 1------------------------
+[2026-07-24 07:30:45] starting movement sequence A
+[2026-07-24 07:30:53] closed camera connection
+[2026-07-24 07:30:53] ----------------------------CODE EXECUTION END----------------------------
+[2026-07-24 07:34:11] ROS2 node initialized with params
+[2026-07-24 07:34:12] ----------------------------CODE EXECUTION START----------------------------
+[2026-07-24 07:34:12] initialised cloudinary
+[2026-07-24 07:34:13] initialised firebase
+[2026-07-24 07:34:13] initialised serial at /dev/arduino with 115200
+[2026-07-24 07:34:13] initialised YOLO inference class
+[2026-07-24 07:34:13] initialised image processing class with updater
+[2026-07-24 07:34:13] model exists in path specified, returning YOLO object
+[2026-07-24 07:34:13] source is camera
+[2026-07-24 07:34:13] opened camera successfully
+[2026-07-24 07:34:13] -------------------number for n is : 1------------------------
+[2026-07-24 07:34:13] starting movement sequence A
+[2026-07-24 07:34:21] wrote image of raw image to path /home/shourya/yolo/src/main/clicked_images/pic1/captured_image_raw.jpg
+[2026-07-24 07:42:08] ROS2 node initialized with params
+[2026-07-24 07:42:09] ----------------------------CODE EXECUTION START----------------------------
+[2026-07-24 07:42:09] initialised cloudinary
+[2026-07-24 07:42:10] initialised firebase
+[2026-07-24 07:42:10] initialised serial at /dev/arduino with 115200
+[2026-07-24 07:42:10] initialised YOLO inference class
+[2026-07-24 07:42:10] initialised image processing class with updater
+[2026-07-24 07:42:10] model exists in path specified, returning YOLO object
+[2026-07-24 07:42:10] source is camera
+[2026-07-24 07:42:10] opened camera successfully
+[2026-07-24 07:42:10] -------------------number for n is : 1------------------------
+[2026-07-24 07:42:10] starting movement sequence A
+[2026-07-24 07:42:18] wrote image of raw image to path /home/shourya/yolo/src/main/clicked_images/pic2/captured_image_raw.jpg
