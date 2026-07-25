@@ -3,26 +3,25 @@ import sys
 import argparse
 import time
 
-#Image Processing
+# Image Processing
 import cv2
 
-#Serial
+# Serial
 import serial
 
-#YOLO pkgs
+# YOLO pkgs
 from ultralytics import YOLO
 
-#Firebase
+# Firebase
 import firebase_admin
 from firebase_admin import db, credentials
 
-#Cloudinary
+# Cloudinary
 import cloudinary
 import cloudinary.uploader
 
-#Logging
+# Logging
 from datetime import datetime
-
 
 import rclpy
 from rclpy.node import Node
@@ -39,7 +38,7 @@ API_KEY = os.getenv("CLOUDINARY_API_KEY")
 API_SECRET = os.getenv("CLOUDINARY_API_SECRET")
 PORT = '/dev/arduino'
 BAUD_RATE = 115200
-TIME_TO_MOVE_FORWARD = 0.5
+TIME_TO_MOVE_FORWARD = 0.75
 SLEEP_TIME = 2.0
 
 def log_to_file(message: str, severity: str = "d"):
@@ -149,11 +148,13 @@ class ImageProcessing:
             with open(counter_file, "r") as f:
                 try:
                     current_val = int(f.read().strip())
-                    count = ((current_val - 1) % 4) + 1
+                    # Toggle modulo logic specifically for 1 and 2
+                    count = ((current_val - 1) % 2) + 1
                 except ValueError:
                     count = 1
         with open(counter_file, "w") as f:
-            f.write(str(count + 1 if count < 4 else 1))
+            # Increments counter to alternate strictly between 1 and 2
+            f.write(str(count + 1 if count < 2 else 1))
         return count
 
     def open_camera(self, camera_input):
@@ -233,17 +234,10 @@ class MainNode(Node):
 
         self.ang_vel = 0.0
 
-        # --- STEP 1 OPTIMIZATION ---
-        # Read parameters ONCE here instead of on every timer_callback() call.
         model_path = self.get_parameter('model').get_parameter_value().string_value
         img_source = self.get_parameter('source').get_parameter_value().string_value
         self.min_thresh = self.get_parameter('thresh').get_parameter_value().double_value
 
-        # Create all long-lived, heavy objects ONCE at node startup.
-        # Previously these were re-created inside timer_callback() on every call,
-        # which re-initialized Firebase, reloaded the YOLO model (new CUDA/cuBLAS
-        # context), and re-opened the camera every time -> GPU memory exhaustion
-        # (CUBLAS_STATUS_ALLOC_FAILED) and a Firebase re-init crash on any 2nd call.
         self.updater = Updatation()
         self.serial_op = SerialOperation(PORT, BAUD_RATE)
         self.yolo_handler = YoloInference()
@@ -259,7 +253,6 @@ class MainNode(Node):
             else:
                 camera_input = int(img_source)
             self.cap = self.img_proc.open_camera(camera_input)
-        # --- END STEP 1 OPTIMIZATION ---
 
         self.timer_ = self.create_timer(1.0, self.timer_callback)
         log_to_file("ROS2 node initialized with params")
@@ -350,7 +343,7 @@ class MainNode(Node):
 
         #----------------------A starts-------------------------
         log_to_file("starting movement sequence A")
-        start_time = time.time() #0
+        start_time = time.time()
         while time.time() - start_time < TIME_TO_MOVE_FORWARD:
             self.send_command_movement("forward")
             time.sleep(0.1)
@@ -375,7 +368,7 @@ class MainNode(Node):
         self.send_command_movement("right_minor")
         time.sleep(2.0)
 
-        start_time = time.time() #0
+        start_time = time.time()
         while time.time() - start_time < TIME_TO_MOVE_FORWARD:
             self.send_command_movement("forward")
             time.sleep(0.1)
@@ -383,6 +376,7 @@ class MainNode(Node):
         time.sleep(2.0)
         log_to_file("ending movement sequence A")
         #----------------------A ends-------------------------
+        
         #----------------------B starts-------------------------
         log_to_file("starting movement sequence B")
         self.send_command_movement("left")
@@ -391,8 +385,7 @@ class MainNode(Node):
         self.send_command_movement("left_minor")
         time.sleep(2.0)
 
-
-        start_time = time.time() #0
+        start_time = time.time()
         while time.time() - start_time < TIME_TO_MOVE_FORWARD:
             self.send_command_movement("forward")
             time.sleep(0.1)
@@ -416,7 +409,7 @@ class MainNode(Node):
         self.send_command_movement("right_minor")
         time.sleep(2.0)
 
-        start_time = time.time() #0
+        start_time = time.time()
         while time.time() - start_time < TIME_TO_MOVE_FORWARD:
             self.send_command_movement("forward")
             time.sleep(0.1)
@@ -424,101 +417,14 @@ class MainNode(Node):
         time.sleep(2.0)
         log_to_file("ending movement sequence B")
         #----------------------B ENDS-------------------------
-        #----------------------C starts-------------------------
-        log_to_file("starting movement sequence C")
-
-        self.send_command_movement("left")
-        self.get_logger().info(f"ang_vel: {self.ang_vel}")
-        time.sleep(2.0)
-        self.send_command_movement("left_minor")
-        time.sleep(2.0)
-
-
-        start_time = time.time() #0
-        while time.time() - start_time < TIME_TO_MOVE_FORWARD:
-            self.send_command_movement("forward")
-            time.sleep(0.1)
-
-        time.sleep(2)
-
-        self.send_command_movement("right")
-        time.sleep(2.0)
-        self.send_command_movement("right_minor")
-        time.sleep(2.0)
-
-        try:
-            self.img_proc.take_picture_from_camera(self.cap, self.model, self.min_thresh)
-        except IOError as e:
-            self.get_logger(f"error in take_picture_from_camera: {e}")
-            log_to_file(f"error in take_picture_from_camera: {e}", "e")
-            sys.exit(1)
-
-        self.send_command_movement("left")
-        time.sleep(2.0)
-        self.send_command_movement("left_minor")
-        time.sleep(2.0)
-
-        start_time = time.time() #0
-        while time.time() - start_time < TIME_TO_MOVE_FORWARD:
-            self.send_command_movement("forward")
-            time.sleep(0.1)
-
-        time.sleep(2.0)
-        log_to_file("ending movement sequence C")
-        # #----------------------C ENDS-------------------------
-        # #----------------------D starts-------------------------
-        # log_to_file("starting movement sequence D")
-        # self.send_command_movement("right")
-        # self.get_logger().info(f"ang_vel: {self.ang_vel}")
-        # time.sleep(2.0)
-        # self.send_command_movement("right_minor")
-        # time.sleep(2.0)
-
-
-        # start_time = time.time() #0
-        # while time.time() - start_time < TIME_TO_MOVE_FORWARD:
-        #     self.send_command_movement("forward")
-        #     time.sleep(0.1)
-
-        # time.sleep(2.0)
-
-        # self.send_command_movement("right")
-        # time.sleep(2.0)
-        # self.send_command_movement("right_minor")
-        # time.sleep(2.0)
-
-        # try:
-        #     img_proc.take_picture_from_camera(cap, model, min_thresh)
-        # except IOError as e:
-        #     self.get_logger(f"error in take_picture_from_camera: {e}")
-        #     log_to_file(f"error in take_picture_from_camera: {e}", "e")
-        #     sys.exit(1)
-
-        # self.send_command_movement("left")
-        # time.sleep(2.0)
-        # self.send_command_movement("left_minor")
-        # time.sleep(2.0)
-
-        # start_time = time.time() #0
-        # while time.time() - start_time < TIME_TO_MOVE_FORWARD:
-        #     self.send_command_movement("forward")
-        #     time.sleep(0.1)
-
-        # time.sleep(2.0)
-        # log_to_file("ending movement sequence D")
-        # #----------------------D ENDS-------------------------
 
         log_to_file("----------------------------CODE EXECUTION END----------------------------")
         self.timer_.cancel()
 
     def destroy_node(self):
-        # --- STEP 1 OPTIMIZATION ---
-        # Release the camera exactly once, on node shutdown, instead of inside
-        # timer_callback(). Guarded so it's safe even if cap was never opened.
         if getattr(self, "cap", None) is not None:
             self.cap.release()
             log_to_file("closed camera connection")
-        # --- END STEP 1 OPTIMIZATION ---
         super().destroy_node()
 
 
