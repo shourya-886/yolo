@@ -105,7 +105,7 @@ class Updatation:
         result2 = cloudinary.uploader.upload(infer_image)
         db.reference(f"/images/input{iteration}").set(result1["secure_url"])
         db.reference(f"/images/inference{iteration}").set(result2["secure_url"])
-        log_to_file(f"uploaded image to cloudinary and stored url in firebase with each url being: {result1["secure_url"]} and {result2["secure_url"]}")
+        log_to_file(f"uploaded image to cloudinary and stored url in firebase with each url being: {result1['secure_url']} and {result2['secure_url']}")
 
 class YoloInference():
     def __init__(self):
