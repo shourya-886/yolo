@@ -11,7 +11,7 @@ from rclpy.node import Node
 class CloudinaryFirebaseTest(Node):
     def __init__(self):
         super().__init__('cloudinary_firebase_test_node')
-        cred = credentials.Certificate("/home/shourya/yolo/src/main/firebase/firebase_new.json")
+        cred = credentials.Certificate("/home/shourya/yolo/src/main/firebase/firebase_new_new.json")
         firebase_admin.initialize_app(cred, {"databaseURL":"https://testing-65588-default-rtdb.firebaseio.com/"}) #this link is for firebase project called wro_2026
 
         self.timer = self.create_timer(5.0, self.timer_callback)

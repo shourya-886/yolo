@@ -91,21 +91,21 @@ class Updatation:
         log_to_file("initialised cloudinary")
 
     def initialise_firebase(self):
-        cred = credentials.Certificate("/home/shourya/yolo/src/main/firebase/firebase_new.json")
+        cred = credentials.Certificate("/home/shourya/yolo/src/main/firebase/firebase_new_new.json")
         firebase_admin.initialize_app(cred, {"databaseURL": "https://testing-65588-default-rtdb.firebaseio.com/"})
         log_to_file("initialised firebase")
 
     def update_firebase_objects_detect(self, desired_state, desired_number, iteration):
         db.reference(f"/objects/object_detected{iteration}").set(desired_state)
         db.reference(f"/objects/no_objects{iteration}").set(desired_number)
-        log_to_file("updated object's number to firebase")
+        log_to_file(f"updated object's number to firebase {desired_state} and {desired_number}")
 
     def update_firebase_url(self, image_raw, infer_image, iteration):
         result1 = cloudinary.uploader.upload(image_raw)
         result2 = cloudinary.uploader.upload(infer_image)
         db.reference(f"/images/input{iteration}").set(result1["secure_url"])
         db.reference(f"/images/inference{iteration}").set(result2["secure_url"])
-        log_to_file("uploaded image to cloudinary and stored url in firebase")
+        log_to_file(f"uploaded image to cloudinary and stored url in firebase with each url being: {result1["secure_url"]} and {result2["secure_url"]}")
 
 class YoloInference():
     def __init__(self):
@@ -141,21 +141,26 @@ class ImageProcessing:
         log_to_file("initialised image processing class with updater")
 
     def get_and_increment_counter(self):
-        counter_file = os.path.join("/home/shourya/yolo/src/main/setup", "counter_inference.txt")
-        os.makedirs("/home/shourya/yolo/src/main/setup", exist_ok=True)
-        count = 1
+        counter_file = "/home/shourya/yolo/src/main/setup/counter_inference.txt"
+        os.makedirs(os.path.dirname(counter_file), exist_ok=True)
+
+        current_val = 1
         if os.path.exists(counter_file):
-            with open(counter_file, "r") as f:
-                try:
-                    current_val = int(f.read().strip())
-                    # Toggle modulo logic specifically for 1 and 2
-                    count = ((current_val - 1) % 2) + 1
-                except ValueError:
-                    count = 1
+            try:
+                with open(counter_file, "r") as f:
+                    val = int(f.read().strip())
+                    if val in (1, 2):
+                        current_val = val
+            except ValueError:
+                current_val = 1
+
+        # Next iteration toggles strictly between 1 and 2
+        next_val = 2 if current_val == 1 else 1
+
         with open(counter_file, "w") as f:
-            # Increments counter to alternate strictly between 1 and 2
-            f.write(str(count + 1 if count < 2 else 1))
-        return count
+            f.write(str(next_val))
+
+        return current_val
 
     def open_camera(self, camera_input):
         cap = cv2.VideoCapture(camera_input)
@@ -232,7 +237,6 @@ class MainNode(Node):
         self.cmd_vel_pub = self.create_publisher(TwistStamped, "/input_joy/cmd_vel_stamped", 10)
         self.imu_sub = self.create_subscription(Imu, "/imu/out", self.imu_callback, self.qos_profile_pub)
 
-        self.ang_vel = 0.0
 
         model_path = self.get_parameter('model').get_parameter_value().string_value
         img_source = self.get_parameter('source').get_parameter_value().string_value
@@ -271,6 +275,7 @@ class MainNode(Node):
             message.twist.angular.y = 0.0
             message.twist.angular.z = 0.0
             self.get_logger().info("in forward")
+            
 
         elif direction == "backward":
             message.twist.linear.x = -0.5
@@ -332,8 +337,6 @@ class MainNode(Node):
         self.cmd_vel_pub.publish(message)
         self.get_logger().info("publishing message")
 
-    def imu_callback(self, msg):
-        self.ang_vel = msg.angular_velocity.z
 
     def timer_callback(self):
         log_to_file("----------------------------CODE EXECUTION START----------------------------")
@@ -351,7 +354,6 @@ class MainNode(Node):
         time.sleep(2.0)
 
         self.send_command_movement("left")
-        self.get_logger().info(f"ang_vel: {self.ang_vel}")
         time.sleep(2.0)
         self.send_command_movement("left_minor")
         time.sleep(2.0)
@@ -380,7 +382,6 @@ class MainNode(Node):
         #----------------------B starts-------------------------
         log_to_file("starting movement sequence B")
         self.send_command_movement("left")
-        self.get_logger().info(f"ang_vel: {self.ang_vel}")
         time.sleep(2.0)
         self.send_command_movement("left_minor")
         time.sleep(2.0)
