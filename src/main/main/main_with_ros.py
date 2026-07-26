@@ -26,7 +26,6 @@ from datetime import datetime
 import rclpy
 from rclpy.node import Node
 from geometry_msgs.msg import TwistStamped
-from sensor_msgs.msg import Imu
 from rclpy.qos import QoSProfile, QoSDurabilityPolicy, QoSReliabilityPolicy
 
 
@@ -235,7 +234,6 @@ class MainNode(Node):
         self.qos_profile_pub.durability = QoSDurabilityPolicy.VOLATILE
 
         self.cmd_vel_pub = self.create_publisher(TwistStamped, "/input_joy/cmd_vel_stamped", 10)
-        self.imu_sub = self.create_subscription(Imu, "/imu/out", self.imu_callback, self.qos_profile_pub)
 
 
         model_path = self.get_parameter('model').get_parameter_value().string_value
