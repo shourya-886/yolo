@@ -360,7 +360,7 @@ class MainNode(Node):
         try:
             self.img_proc.take_picture_from_camera(self.cap, self.model, self.min_thresh)
         except IOError as e:
-            self.get_logger(f"error in take_picture_from_camera: {e}")
+            self.get_logger().error(f"error in take_picture_from_camera: {e}")
             log_to_file(f"error in take_picture_from_camera: {e}", "e")
             sys.exit(1)
 
@@ -400,7 +400,7 @@ class MainNode(Node):
         try:
             self.img_proc.take_picture_from_camera(self.cap, self.model, self.min_thresh)
         except IOError as e:
-            self.get_logger(f"error in take_picture_from_camera: {e}")
+            self.get_logger().error(f"error in take_picture_from_camera: {e}")
             log_to_file(f"error in take_picture_from_camera: {e}", "e")
             sys.exit(1)
 
