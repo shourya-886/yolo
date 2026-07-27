@@ -28,3 +28,29 @@
 [2026-07-26 22:19:09] updated firebase url for images in take_picture_from_camera()
 [2026-07-26 22:19:16] ending movement sequence B
 [2026-07-26 22:19:16] ----------------------------CODE EXECUTION END----------------------------
+[2026-07-27 16:56:09] initialised cloudinary
+[2026-07-27 16:56:09] initialised firebase
+[2026-07-27 16:56:09] initialised serial at /dev/arduino with 115200
+[2026-07-27 16:56:09] initialised YOLO inference class
+[2026-07-27 16:56:09] initialised image processing class with updater
+[2026-07-27 16:56:09] model exists in path specified, returning YOLO object
+[2026-07-27 16:56:09] source is camera
+[2026-07-27 16:56:09] opened camera successfully
+[2026-07-27 16:56:09] ROS2 node initialized with params
+[2026-07-27 16:56:10] ----------------------------CODE EXECUTION START----------------------------
+[2026-07-27 16:56:10] -------------------number for n is : 1------------------------
+[2026-07-27 16:56:10] starting movement sequence A
+[2026-07-27 16:56:18] wrote image of raw image to path /home/shourya/yolo/src/main/clicked_images/pic2/captured_image_raw.jpg
+[2026-07-27 16:56:25] wrote image of inferenced image to /home/shourya/yolo/src/main/clicked_images_inference/pic2/captured_image_inferenced.jpg
+[2026-07-27 16:56:27] updated object's number to firebase False and 0
+[2026-07-27 16:56:27] updated firebase object's no in take_picture_from_camera()
+[2026-07-27 16:56:27] objects detected on iteration 2: 0
+[2026-07-27 16:56:34] ending movement sequence A
+[2026-07-27 16:56:34] starting movement sequence B
+[2026-07-27 16:56:45] wrote image of raw image to path /home/shourya/yolo/src/main/clicked_images/pic1/captured_image_raw.jpg
+[2026-07-27 16:56:45] wrote image of inferenced image to /home/shourya/yolo/src/main/clicked_images_inference/pic1/captured_image_inferenced.jpg
+[2026-07-27 16:56:46] updated object's number to firebase False and 0
+[2026-07-27 16:56:46] updated firebase object's no in take_picture_from_camera()
+[2026-07-27 16:56:46] objects detected on iteration 1: 0
+[2026-07-27 16:56:52] ending movement sequence B
+[2026-07-27 16:56:52] ----------------------------CODE EXECUTION END----------------------------

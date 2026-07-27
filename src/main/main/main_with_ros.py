@@ -211,15 +211,16 @@ class ImageProcessing:
         cv2.imwrite(infer_save_path, annotated_frame)
         log_to_file(f"wrote image of inferenced image to {infer_save_path}")
 
+        # Always update object counts to Firebase regardless of detection count
         self.updater.update_firebase_objects_detect(any_object_detected, valid_detections_count, pic_count)
         log_to_file(f"updated firebase object's no in take_picture_from_camera()")
 
+        # Always upload images to Cloudinary and update Firebase URLs regardless of detection count
+        self.updater.update_firebase_url(raw_save_path, infer_save_path, pic_count)
+        log_to_file("updated firebase url for images in take_picture_from_camera()")
+
         print(f"objects {valid_detections_count}")
         log_to_file(f"objects detected on iteration {pic_count}: {valid_detections_count}")
-
-        if any_object_detected:
-            self.updater.update_firebase_url(raw_save_path, infer_save_path, pic_count)
-            log_to_file("updated firebase url for images in take_picture_from_camera()")
 
 
 class MainNode(Node):
