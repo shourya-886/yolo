@@ -5,6 +5,7 @@
 src/main/clicked_images/
 src/main/clicked_images_inference/
 src/main/setup/counter_inference.txt
+src/main/firebase/firebase_new_new.json
 
 log/
 build/
