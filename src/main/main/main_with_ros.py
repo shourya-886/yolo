@@ -37,7 +37,7 @@ API_KEY = os.getenv("CLOUDINARY_API_KEY")
 API_SECRET = os.getenv("CLOUDINARY_API_SECRET")
 PORT = '/dev/arduino'
 BAUD_RATE = 115200
-TIME_TO_MOVE_FORWARD = 0.75
+TIME_TO_MOVE_FORWARD = 1.5
 SLEEP_TIME = 2.0
 
 def log_to_file(message: str, severity: str = "d"):
@@ -152,12 +152,16 @@ class ImageProcessing:
                         current_val = val
             except ValueError:
                 current_val = 1
+                log_to_file("invalid value in counter_inference.txt, resetting to 1", "w")
 
         # Next iteration toggles strictly between 1 and 2
         next_val = 2 if current_val == 1 else 1
 
         with open(counter_file, "w") as f:
             f.write(str(next_val))
+            log_to_file(f"wrote next counter value {next_val} to counter_inference.txt")
+
+        log_to_file(f"read and updated counter value to {next_val} in get_and_increment_counter()")
 
         return current_val
 
@@ -185,8 +189,10 @@ class ImageProcessing:
                 file_path = os.path.join(folder, filename)
                 if os.path.isfile(file_path): os.unlink(file_path)
 
-        for _ in range(2): cap.read()
+        for _ in range(2): 
+            cap.read()
         ret, frame = cap.read()
+        log_to_file("read data from cap.read() in take_picture_from_camera()")
 
         if not ret:
             log_to_file("raised a IOerror error, failed to capture image", "e")
